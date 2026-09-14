@@ -1,70 +1,39 @@
-import { useState, useEffect, useRef } from 'react';
 import { useApp } from '../store';
 import { products, categories, formatPrice, getDiscountPercent } from '../data/products';
-import { ShoppingCart, Heart, ChevronLeft, ChevronRight, Star, Truck, Shield, Headphones, Award } from 'lucide-react';
+import AdvancedCarousel from '../components/AdvancedCarousel';
+import { ShoppingCart, Heart, ChevronLeft, Star, Truck, Shield, Headphones, Award, Zap, Cpu, Smartphone, Laptop, Watch, Gamepad2, Headphones as HeadphonesIcon, Monitor, Keyboard } from 'lucide-react';
 
 export default function HomePage() {
   const { dispatch } = useApp();
 
   return (
     <div className="animate-fade-in">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-l from-blue-600 via-blue-700 to-indigo-800 text-white overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-10 right-10 w-72 h-72 bg-white rounded-full blur-3xl"></div>
-          <div className="absolute bottom-10 left-10 w-96 h-96 bg-purple-300 rounded-full blur-3xl"></div>
-        </div>
-        <div className="max-w-7xl mx-auto px-4 py-16 md:py-24 relative z-10">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <span className="inline-block bg-white/20 backdrop-blur-sm px-4 py-1.5 rounded-full text-sm mb-6">
-                بزرگ‌ترین فروشگاه محصولات دیجیتال ایران
-              </span>
-              <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-6">
-                تجربه خرید دیجیتال
-                <br />
-                <span className="text-blue-200">به سبک آینده</span>
-              </h1>
-              <p className="text-blue-100 text-lg mb-8 leading-relaxed">
-                از موبایل و لپ‌تاپ تا قطعات سخت‌افزاری و لوازم گیمینگ، همه در یکجا با ضمانت اصالت، قیمت شفاف و ارسال سریع.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <button
-                  onClick={() => dispatch({ type: 'SET_PAGE', payload: 'products' })}
-                  className="bg-white text-blue-700 px-8 py-3 rounded-xl font-semibold hover:bg-blue-50 transition-all shadow-lg hover:shadow-xl"
-                >
-                  مشاهده محصولات
-                </button>
-                <button className="border-2 border-white/50 text-white px-8 py-3 rounded-xl font-semibold hover:bg-white/10 transition-all">
-                  پیشنهادهای ویژه
-                </button>
-              </div>
-            </div>
-            <div className="hidden md:block">
-              <HeroCarousel />
-            </div>
-          </div>
-        </div>
+      {/* Hero Carousel */}
+      <section className="relative">
+        <AdvancedCarousel 
+          products={products.slice(0, 5)}
+          variant="hero"
+          autoPlay={true}
+          interval={6000}
+        />
       </section>
 
       {/* Trust Badges */}
-      <section className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <section className="relative z-10 -mt-20">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { icon: Truck, title: 'ارسال سریع', desc: 'تحویل اکسپرس به سراسر کشور' },
-              { icon: Shield, title: 'ضمانت اصالت', desc: 'تمامی محصولات اورجینال و رسمی' },
-              { icon: Headphones, title: 'پشتیبانی ۲۴/۷', desc: 'تیم پشتیبانی در خدمت شما' },
-              { icon: Award, title: 'بهترین قیمت', desc: 'تضمین بهترین قیمت بازار' },
+              { icon: Truck, title: 'ارسال سریع', desc: 'تحویل اکسپرس به سراسر کشور', color: 'from-cyan-500 to-blue-500' },
+              { icon: Shield, title: 'ضمانت اصالت', desc: 'تمامی محصولات اورجینال', color: 'from-purple-500 to-pink-500' },
+              { icon: Headphones, title: 'پشتیبانی ۲۴/۷', desc: 'تیم پشتیبانی در خدمت شما', color: 'from-green-500 to-emerald-500' },
+              { icon: Award, title: 'بهترین قیمت', desc: 'تضمین بهترین قیمت بازار', color: 'from-amber-500 to-orange-500' },
             ].map((item, i) => (
-              <div key={i} className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <item.icon className="w-6 h-6 text-blue-600" />
+              <div key={i} className="glass rounded-2xl p-5 hover:scale-105 transition-all duration-300 group">
+                <div className={`w-12 h-12 bg-gradient-to-br ${item.color} rounded-xl flex items-center justify-center mb-3 shadow-lg group-hover:shadow-2xl transition-all`}>
+                  <item.icon className="w-6 h-6 text-white" />
                 </div>
-                <div>
-                  <h3 className="font-semibold text-sm text-gray-800">{item.title}</h3>
-                  <p className="text-xs text-gray-500">{item.desc}</p>
-                </div>
+                <h3 className="font-bold text-white text-sm mb-1">{item.title}</h3>
+                <p className="text-xs text-gray-400">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -72,12 +41,15 @@ export default function HomePage() {
       </section>
 
       {/* Categories */}
-      <section className="max-w-7xl mx-auto px-4 py-12">
+      <section className="max-w-7xl mx-auto px-4 py-16">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl font-bold text-gray-800">دسته‌بندی محصولات</h2>
+          <div>
+            <h2 className="text-3xl font-bold text-white mb-2">دسته‌بندی محصولات</h2>
+            <p className="text-gray-400">محصولات مورد نظر خود را پیدا کنید</p>
+          </div>
           <button
             onClick={() => dispatch({ type: 'SET_PAGE', payload: 'products' })}
-            className="text-blue-600 text-sm font-medium flex items-center gap-1 hover:text-blue-700"
+            className="text-cyan-400 text-sm font-medium flex items-center gap-1 hover:text-cyan-300 transition-colors"
           >
             مشاهده همه
             <ChevronLeft className="w-4 h-4" />
@@ -91,130 +63,181 @@ export default function HomePage() {
                 dispatch({ type: 'SET_CATEGORY', payload: cat.id });
                 dispatch({ type: 'SET_PAGE', payload: 'products' });
               }}
-              className="group bg-white rounded-2xl p-4 text-center hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-blue-200"
+              className="group glass rounded-2xl p-4 text-center hover:scale-105 hover:border-cyan-500/50 transition-all duration-300"
             >
-              <div className="w-14 h-14 mx-auto bg-gradient-to-br from-blue-50 to-indigo-100 rounded-xl flex items-center justify-center mb-3 group-hover:from-blue-100 group-hover:to-indigo-200 transition-all">
+              <div className="w-14 h-14 mx-auto bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-xl flex items-center justify-center mb-3 group-hover:from-cyan-500/30 group-hover:to-purple-500/30 transition-all">
                 <CategoryIcon name={cat.icon} />
               </div>
-              <h3 className="text-xs font-medium text-gray-700 group-hover:text-blue-600 transition-colors">{cat.name}</h3>
-              <p className="text-[10px] text-gray-400 mt-1">{cat.count} محصول</p>
+              <h3 className="text-xs font-medium text-white group-hover:text-cyan-400 transition-colors">{cat.name}</h3>
+              <p className="text-[10px] text-gray-500 mt-1">{cat.count} محصول</p>
             </button>
           ))}
         </div>
       </section>
 
       {/* Flash Sale Carousel */}
-      <section className="bg-gradient-to-l from-red-50 to-orange-50 py-12">
-        <div className="max-w-7xl mx-auto px-4">
+      <section className="relative py-16 overflow-hidden">
+        {/* Background Effects */}
+        <div className="absolute inset-0 bg-gradient-to-r from-red-900/20 via-orange-900/20 to-pink-900/20"></div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-red-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl"></div>
+        
+        <div className="relative max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h2 className="text-2xl font-bold text-gray-800">پیشنهادات شگفت‌انگیز</h2>
-              <p className="text-gray-500 text-sm mt-1">تخفیف‌های ویژه با زمان محدود</p>
+              <div className="flex items-center gap-2 mb-2">
+                <Zap className="w-6 h-6 text-yellow-400 animate-pulse" />
+                <h2 className="text-3xl font-bold text-white">پیشنهادات شگفت‌انگیز</h2>
+              </div>
+              <p className="text-gray-400">تخفیف‌های ویژه با زمان محدود</p>
             </div>
-            <div className="flex items-center gap-2 bg-red-600 text-white px-4 py-2 rounded-xl">
+            <div className="flex items-center gap-2 bg-gradient-to-r from-red-500 to-pink-500 text-white px-4 py-2 rounded-xl shadow-lg shadow-red-500/50">
               <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-              <span className="text-sm font-medium">فعال</span>
+              <span className="text-sm font-bold">فعال</span>
             </div>
           </div>
-          <ProductCarousel products={products.filter(p => p.originalPrice)} />
+          <AdvancedCarousel 
+            products={products.filter(p => p.originalPrice)}
+            variant="featured"
+            autoPlay={true}
+            interval={4000}
+          />
         </div>
       </section>
 
       {/* Featured Products Carousel */}
-      <section className="max-w-7xl mx-auto px-4 py-12">
+      <section className="max-w-7xl mx-auto px-4 py-16">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl font-bold text-gray-800">محصولات ویژه</h2>
+          <div>
+            <h2 className="text-3xl font-bold text-white mb-2">محصولات ویژه</h2>
+            <p className="text-gray-400">منتخب بهترین محصولات</p>
+          </div>
           <button
             onClick={() => dispatch({ type: 'SET_PAGE', payload: 'products' })}
-            className="text-blue-600 text-sm font-medium flex items-center gap-1 hover:text-blue-700"
+            className="text-cyan-400 text-sm font-medium flex items-center gap-1 hover:text-cyan-300 transition-colors"
           >
             مشاهده همه
             <ChevronLeft className="w-4 h-4" />
           </button>
         </div>
-        <ProductCarousel products={products.filter(p => p.badge)} />
+        <AdvancedCarousel 
+          products={products.filter(p => p.badge)}
+          variant="featured"
+          autoPlay={true}
+          interval={5000}
+        />
       </section>
 
       {/* Mobile & Tablet Carousel */}
-      <section className="bg-white py-12">
-        <div className="max-w-7xl mx-auto px-4">
+      <section className="relative py-16 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 via-indigo-900/20 to-purple-900/20"></div>
+        <div className="absolute top-1/2 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+        
+        <div className="relative max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h2 className="text-2xl font-bold text-gray-800">موبایل و تبلت</h2>
-              <p className="text-gray-500 text-sm mt-1">جدیدترین گوشی‌ها و تبلت‌ها</p>
+              <h2 className="text-3xl font-bold text-white mb-2">موبایل و تبلت</h2>
+              <p className="text-gray-400">جدیدترین گوشی‌ها و تبلت‌ها</p>
             </div>
             <button
               onClick={() => { dispatch({ type: 'SET_CATEGORY', payload: 'mobile' }); dispatch({ type: 'SET_PAGE', payload: 'products' }); }}
-              className="text-blue-600 text-sm font-medium flex items-center gap-1 hover:text-blue-700"
+              className="text-cyan-400 text-sm font-medium flex items-center gap-1 hover:text-cyan-300 transition-colors"
             >
               مشاهده همه
               <ChevronLeft className="w-4 h-4" />
             </button>
           </div>
-          <ProductCarousel products={products.filter(p => p.category === 'mobile')} />
+          <AdvancedCarousel 
+            products={products.filter(p => p.category === 'mobile')}
+            variant="featured"
+            autoPlay={true}
+            interval={5000}
+          />
         </div>
       </section>
 
       {/* Gaming Carousel */}
-      <section className="bg-gradient-to-l from-purple-50 to-indigo-50 py-12">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <h2 className="text-2xl font-bold text-gray-800">دنیای گیمینگ</h2>
-              <p className="text-gray-500 text-sm mt-1">کنسول، لوازم جانبی و بازی</p>
-            </div>
-            <button
-              onClick={() => { dispatch({ type: 'SET_CATEGORY', payload: 'gaming' }); dispatch({ type: 'SET_PAGE', payload: 'products' }); }}
-              className="text-blue-600 text-sm font-medium flex items-center gap-1 hover:text-blue-700"
-            >
-              مشاهده همه
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-          </div>
-          <ProductCarousel products={products.filter(p => p.category === 'gaming')} />
-        </div>
-      </section>
-
-      {/* Laptop Carousel */}
-      <section className="max-w-7xl mx-auto px-4 py-12">
+      <section className="max-w-7xl mx-auto px-4 py-16">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h2 className="text-2xl font-bold text-gray-800">لپ‌تاپ و کامپیوتر</h2>
-            <p className="text-gray-500 text-sm mt-1">بهترین لپ‌تاپ‌ها برای هر نیاز</p>
+            <h2 className="text-3xl font-bold text-white mb-2">دنیای گیمینگ</h2>
+            <p className="text-gray-400">کنسول، لوازم جانبی و بازی</p>
           </div>
           <button
-            onClick={() => { dispatch({ type: 'SET_CATEGORY', payload: 'laptop' }); dispatch({ type: 'SET_PAGE', payload: 'products' }); }}
-            className="text-blue-600 text-sm font-medium flex items-center gap-1 hover:text-blue-700"
+            onClick={() => { dispatch({ type: 'SET_CATEGORY', payload: 'gaming' }); dispatch({ type: 'SET_PAGE', payload: 'products' }); }}
+            className="text-cyan-400 text-sm font-medium flex items-center gap-1 hover:text-cyan-300 transition-colors"
           >
             مشاهده همه
             <ChevronLeft className="w-4 h-4" />
           </button>
         </div>
-        <ProductCarousel products={products.filter(p => p.category === 'laptop')} />
+        <AdvancedCarousel 
+          products={products.filter(p => p.category === 'gaming')}
+          variant="featured"
+          autoPlay={true}
+          interval={5000}
+        />
       </section>
 
-      {/* All Products Carousel */}
-      <section className="bg-white py-12">
-        <div className="max-w-7xl mx-auto px-4">
+      {/* Laptop Carousel */}
+      <section className="relative py-16 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-900/20 via-pink-900/20 to-rose-900/20"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
+        
+        <div className="relative max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl font-bold text-gray-800">همه محصولات</h2>
+            <div>
+              <h2 className="text-3xl font-bold text-white mb-2">لپ‌تاپ و کامپیوتر</h2>
+              <p className="text-gray-400">بهترین لپ‌تاپ‌ها برای هر نیاز</p>
+            </div>
+            <button
+              onClick={() => { dispatch({ type: 'SET_CATEGORY', payload: 'laptop' }); dispatch({ type: 'SET_PAGE', payload: 'products' }); }}
+              className="text-cyan-400 text-sm font-medium flex items-center gap-1 hover:text-cyan-300 transition-colors"
+            >
+              مشاهده همه
+              <ChevronLeft className="w-4 h-4" />
+            </button>
           </div>
-          <ProductCarousel products={products} showAll />
+          <AdvancedCarousel 
+            products={products.filter(p => p.category === 'laptop')}
+            variant="featured"
+            autoPlay={true}
+            interval={5000}
+          />
         </div>
       </section>
 
+      {/* All Products Carousel */}
+      <section className="max-w-7xl mx-auto px-4 py-16">
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h2 className="text-3xl font-bold text-white mb-2">همه محصولات</h2>
+            <p className="text-gray-400">کاوش در میان تمام محصولات</p>
+          </div>
+        </div>
+        <AdvancedCarousel 
+          products={products}
+          variant="compact"
+          autoPlay={false}
+        />
+      </section>
+
       {/* CTA Banner */}
-      <section className="max-w-7xl mx-auto px-4 pb-12">
-        <div className="bg-gradient-to-l from-indigo-600 to-purple-700 rounded-3xl p-8 md:p-12 text-white relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-64 h-64 bg-white/5 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+      <section className="max-w-7xl mx-auto px-4 pb-16">
+        <div className="relative glass rounded-3xl p-8 md:p-12 overflow-hidden">
+          {/* Background Effects */}
+          <div className="absolute inset-0 bg-gradient-to-br from-violet-600/20 to-indigo-600/20"></div>
+          <div className="absolute top-0 right-0 w-96 h-96 bg-violet-500/20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl"></div>
+          
           <div className="relative z-10">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">فروشگاه خود را بسازید</h2>
-            <p className="text-indigo-100 mb-6 max-w-lg">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">فروشگاه خود را بسازید</h2>
+            <p className="text-gray-300 mb-6 max-w-lg">
               با پلتفرم دیجی‌مارکت، کسب‌وکار دیجیتال خود را بدون نیاز به دانش فنی راه‌اندازی کنید.
             </p>
             <button
               onClick={() => dispatch({ type: 'SET_PAGE', payload: 'admin' })}
-              className="bg-white text-indigo-700 px-8 py-3 rounded-xl font-semibold hover:bg-indigo-50 transition-all"
+              className="px-8 py-3 bg-gradient-to-r from-violet-500 to-indigo-500 text-white rounded-xl font-semibold hover:shadow-2xl hover:shadow-violet-500/50 transition-all transform hover:scale-105"
             >
               ورود به پنل مدیریت
             </button>
@@ -225,188 +248,17 @@ export default function HomePage() {
   );
 }
 
-function HeroCarousel() {
-  const [current, setCurrent] = useState(0);
-  const heroProducts = products.slice(0, 4);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % heroProducts.length);
-    }, 4000);
-    return () => clearInterval(timer);
-  }, [heroProducts.length]);
-
-  return (
-    <div className="relative">
-      <div className="overflow-hidden rounded-3xl">
-        <div
-          className="flex transition-transform duration-700 ease-in-out"
-          style={{ transform: `translateX(${current * 100}%)` }}
-        >
-          {heroProducts.map((product, i) => (
-            <div key={product.id} className="min-w-full flex justify-center">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full max-w-sm object-contain drop-shadow-2xl"
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="flex justify-center gap-2 mt-4">
-        {heroProducts.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setCurrent(i)}
-            className={`w-2 h-2 rounded-full transition-all ${i === current ? 'bg-white w-6' : 'bg-white/40'}`}
-          />
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function ProductCarousel({ products: carouselProducts, showAll }: { products: typeof products; showAll?: boolean }) {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
-
-  const checkScroll = () => {
-    if (scrollRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-      setCanScrollLeft(scrollLeft > 0);
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
-    }
-  };
-
-  useEffect(() => {
-    checkScroll();
-    const el = scrollRef.current;
-    if (el) {
-      el.addEventListener('scroll', checkScroll);
-      return () => el.removeEventListener('scroll', checkScroll);
-    }
-  }, []);
-
-  const scroll = (direction: 'left' | 'right') => {
-    if (scrollRef.current) {
-      const scrollAmount = 300;
-      scrollRef.current.scrollBy({
-        left: direction === 'left' ? -scrollAmount : scrollAmount,
-        behavior: 'smooth',
-      });
-    }
-  };
-
-  return (
-    <div className="relative group">
-      {/* Navigation Buttons */}
-      {canScrollRight && (
-        <button
-          onClick={() => scroll('right')}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white shadow-lg rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-blue-50"
-        >
-          <ChevronRight className="w-5 h-5 text-gray-700" />
-        </button>
-      )}
-      {canScrollLeft && (
-        <button
-          onClick={() => scroll('left')}
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white shadow-lg rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-blue-50"
-        >
-          <ChevronLeft className="w-5 h-5 text-gray-700" />
-        </button>
-      )}
-
-      {/* Scrollable Container */}
-      <div
-        ref={scrollRef}
-        className="flex gap-4 overflow-x-auto scrollbar-hide pb-4 snap-x snap-mandatory"
-        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-      >
-        {carouselProducts.map(product => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function ProductCard({ product }: { product: typeof products[0] }) {
-  const { dispatch, state } = useApp();
-  const discount = getDiscountPercent(product.price, product.originalPrice);
-  const isFav = state.favorites.includes(product.id);
-
-  return (
-    <div className="min-w-[220px] max-w-[220px] snap-start bg-white rounded-2xl border border-gray-100 hover:border-blue-200 hover:shadow-xl transition-all duration-300 overflow-hidden flex-shrink-0">
-      <div className="relative p-4 cursor-pointer" onClick={() => dispatch({ type: 'SET_PRODUCT', payload: product.id })}>
-        {product.badge && (
-          <span className="absolute top-2 right-2 bg-red-500 text-white text-[10px] px-2 py-1 rounded-lg font-medium z-10">
-            {product.badge}
-          </span>
-        )}
-        {discount > 0 && (
-          <span className="absolute top-2 left-2 bg-green-500 text-white text-[10px] px-2 py-1 rounded-lg font-medium z-10">
-            {discount}%
-          </span>
-        )}
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-36 object-contain hover:scale-105 transition-transform duration-300"
-        />
-        <button
-          onClick={(e) => { e.stopPropagation(); dispatch({ type: 'TOGGLE_FAVORITE', payload: product.id }); }}
-          className="absolute bottom-2 left-2 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center"
-        >
-          <Heart className={`w-4 h-4 ${isFav ? 'fill-red-500 text-red-500' : 'text-gray-400'}`} />
-        </button>
-      </div>
-      <div className="p-4 pt-0">
-        <p className="text-[10px] text-gray-400 mb-0.5">{product.brand}</p>
-        <h3
-          className="font-medium text-gray-800 text-xs mb-1 line-clamp-2 cursor-pointer hover:text-blue-600 transition-colors h-8"
-          onClick={() => dispatch({ type: 'SET_PRODUCT', payload: product.id })}
-        >
-          {product.name}
-        </h3>
-        <div className="flex items-center gap-1 mb-2">
-          <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
-          <span className="text-[10px] text-gray-500">{product.rating}</span>
-        </div>
-        <div className="flex items-center justify-between">
-          <div>
-            {product.originalPrice && (
-              <span className="text-[10px] text-gray-400 line-through block">
-                {formatPrice(product.originalPrice)}
-              </span>
-            )}
-            <span className="font-bold text-blue-700 text-xs">{formatPrice(product.price)}</span>
-          </div>
-          <button
-            onClick={() => dispatch({ type: 'ADD_TO_CART', payload: { product } })}
-            className="w-8 h-8 bg-blue-600 text-white rounded-lg flex items-center justify-center hover:bg-blue-700 transition-colors"
-          >
-            <ShoppingCart className="w-3.5 h-3.5" />
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function CategoryIcon({ name }: { name: string }) {
-  const iconClass = "w-7 h-7 text-blue-600";
+  const iconClass = "w-7 h-7 text-cyan-400";
   switch (name) {
-    case 'smartphone': return <svg className={iconClass} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>;
-    case 'laptop': return <svg className={iconClass} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>;
-    case 'cpu': return <svg className={iconClass} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" /></svg>;
-    case 'watch': return <svg className={iconClass} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>;
-    case 'gamepad': return <svg className={iconClass} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" /></svg>;
-    case 'headphones': return <svg className={iconClass} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /></svg>;
-    case 'monitor': return <svg className={iconClass} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>;
-    case 'keyboard': return <svg className={iconClass} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>;
-    default: return <svg className={iconClass} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>;
+    case 'smartphone': return <Smartphone className={iconClass} />;
+    case 'laptop': return <Laptop className={iconClass} />;
+    case 'cpu': return <Cpu className={iconClass} />;
+    case 'watch': return <Watch className={iconClass} />;
+    case 'gamepad': return <Gamepad2 className={iconClass} />;
+    case 'headphones': return <HeadphonesIcon className={iconClass} />;
+    case 'monitor': return <Monitor className={iconClass} />;
+    case 'keyboard': return <Keyboard className={iconClass} />;
+    default: return <Cpu className={iconClass} />;
   }
 }

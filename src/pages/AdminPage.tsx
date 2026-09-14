@@ -28,16 +28,16 @@ export default function AdminPage() {
   };
 
   return (
-    <div className="flex min-h-[calc(100vh-64px)] bg-gradient-to-bl from-slate-50 via-blue-50/30 to-indigo-50/20">
+    <div className="flex min-h-[calc(100vh-64px)] bg-gradient-to-bl from-slate-900 via-gray-900 to-indigo-950">
       {/* Sidebar */}
-      <aside className="w-72 bg-white/80 backdrop-blur-xl border-l border-gray-200/60 p-5 hidden lg:flex flex-col shadow-xl shadow-gray-200/20">
+      <aside className="w-72 glass border-l border-white/10 p-5 hidden lg:flex flex-col shadow-2xl">
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-violet-200">
+            <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg shadow-cyan-500/50 animate-glow">
               <Zap className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h2 className="text-lg font-bold bg-gradient-to-l from-violet-700 to-indigo-600 bg-clip-text text-transparent">پنل مدیریت</h2>
+              <h2 className="text-lg font-bold gradient-text">پنل مدیریت</h2>
               <p className="text-[10px] text-gray-400">دیجی‌مارکت نسخه ۲.۰</p>
             </div>
           </div>
@@ -49,8 +49,8 @@ export default function AdminPage() {
               onClick={() => handleSectionChange(item.id)}
               className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm transition-all duration-200 ${
                 activeSection === item.id
-                  ? 'bg-gradient-to-l from-violet-600 to-indigo-600 text-white shadow-lg shadow-violet-200 font-medium'
-                  : 'text-gray-600 hover:bg-gray-100/80 hover:text-gray-800'
+                  ? 'bg-gradient-to-l from-cyan-500 to-purple-600 text-white shadow-lg shadow-cyan-500/50 font-medium neon-border'
+                  : 'text-gray-300 hover:glass hover:text-white hover:border-cyan-500/30'
               }`}
             >
               <div className="flex items-center gap-3">
@@ -59,7 +59,7 @@ export default function AdminPage() {
               </div>
               {item.badge && (
                 <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${
-                  activeSection === item.id ? 'bg-white/20 text-white' : 'bg-gray-200 text-gray-600'
+                  activeSection === item.id ? 'bg-white/20 text-white' : 'glass text-gray-300'
                 }`}>
                   {item.badge}
                 </span>
@@ -67,12 +67,12 @@ export default function AdminPage() {
             </button>
           ))}
         </nav>
-        <div className="mt-6 p-4 bg-gradient-to-br from-violet-50 to-indigo-50 rounded-2xl border border-violet-100">
+        <div className="mt-6 p-4 glass rounded-2xl border border-cyan-500/20">
           <div className="flex items-center gap-2 mb-2">
-            <div className="w-8 h-8 bg-violet-600 rounded-lg flex items-center justify-center text-white text-xs font-bold">A</div>
+            <div className="w-8 h-8 bg-gradient-to-br from-cyan-500 to-purple-600 rounded-lg flex items-center justify-center text-white text-xs font-bold shadow-lg shadow-cyan-500/50">A</div>
             <div>
-              <p className="text-xs font-bold text-gray-800">ادمین سیستم</p>
-              <p className="text-[10px] text-gray-500">admin@digimarket.ir</p>
+              <p className="text-xs font-bold text-white">ادمین سیستم</p>
+              <p className="text-[10px] text-gray-400">admin@digimarket.ir</p>
             </div>
           </div>
         </div>
@@ -108,13 +108,13 @@ export default function AdminPage() {
 }
 
 function DashboardSection() {
-  const { state } = useApp();
+  const { state, dispatch } = useApp();
 
   const stats = [
-    { label: 'فروش امروز', value: '۱۲۵,۴۰۰,۰۰۰', unit: 'تومان', change: '+۱۲%', up: true, icon: DollarSign, gradient: 'from-emerald-500 to-green-600', bg: 'bg-emerald-50' },
-    { label: 'سفارش‌های جدید', value: '۴۸', unit: 'سفارش', change: '+۸%', up: true, icon: ShoppingCart, gradient: 'from-blue-500 to-indigo-600', bg: 'bg-blue-50' },
-    { label: 'کاربران فعال', value: '۲,۳۴۵', unit: 'نفر', change: '+۵%', up: true, icon: Users, gradient: 'from-violet-500 to-purple-600', bg: 'bg-violet-50' },
-    { label: 'نرخ تبدیل', value: '۳.۲', unit: 'درصد', change: '+۰.۴%', up: true, icon: TrendingUp, gradient: 'from-amber-500 to-orange-600', bg: 'bg-amber-50' },
+    { label: 'فروش امروز', value: '۱۲۵,۴۰۰,۰۰۰', unit: 'تومان', change: '+۱۲%', up: true, icon: DollarSign, gradient: 'from-emerald-500 to-green-600' },
+    { label: 'سفارش‌های جدید', value: '۴۸', unit: 'سفارش', change: '+۸%', up: true, icon: ShoppingCart, gradient: 'from-cyan-500 to-blue-600' },
+    { label: 'کاربران فعال', value: '۲,۳۴۵', unit: 'نفر', change: '+۵%', up: true, icon: Users, gradient: 'from-violet-500 to-purple-600' },
+    { label: 'نرخ تبدیل', value: '۳.۲', unit: 'درصد', change: '+۰.۴%', up: true, icon: TrendingUp, gradient: 'from-amber-500 to-orange-600' },
   ];
 
   const recentOrders = state.orders.slice(0, 5);
@@ -125,11 +125,11 @@ function DashboardSection() {
     <div className="animate-fade-in space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">داشبورد</h1>
-          <p className="text-sm text-gray-500 mt-1">خلاصه وضعیت فروشگاه در لحظه</p>
+          <h1 className="text-2xl font-bold gradient-text">داشبورد</h1>
+          <p className="text-sm text-gray-400 mt-1">خلاصه وضعیت فروشگاه در لحظه</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm hover:bg-gray-50 shadow-sm">
-          <RefreshCw className="w-4 h-4 text-gray-500" />
+        <button className="flex items-center gap-2 px-4 py-2 glass border border-white/10 rounded-xl text-sm text-white hover:border-cyan-500/50 transition-all">
+          <RefreshCw className="w-4 h-4 text-cyan-400" />
           بروزرسانی
         </button>
       </div>
@@ -137,29 +137,29 @@ function DashboardSection() {
       {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {stats.map((stat, i) => (
-          <div key={i} className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm hover:shadow-md transition-shadow">
+          <div key={i} className="glass rounded-2xl border border-white/10 p-5 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all">
             <div className="flex items-center justify-between mb-4">
               <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${stat.gradient} flex items-center justify-center shadow-lg`}>
                 <stat.icon className="w-6 h-6 text-white" />
               </div>
-              <div className={`flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-lg ${stat.up ? 'text-green-700 bg-green-50' : 'text-red-700 bg-red-50'}`}>
+              <div className={`flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-lg ${stat.up ? 'text-green-400 bg-green-500/10' : 'text-red-400 bg-red-500/10'}`}>
                 {stat.up ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
                 {stat.change}
               </div>
             </div>
-            <p className="text-2xl font-bold text-gray-800">{stat.value}</p>
-            <p className="text-xs text-gray-500 mt-1">{stat.label}</p>
+            <p className="text-2xl font-bold text-white">{stat.value}</p>
+            <p className="text-xs text-gray-400 mt-1">{stat.label}</p>
           </div>
         ))}
       </div>
 
       {/* Charts */}
       <div className="grid lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+        <div className="lg:col-span-2 glass rounded-2xl border border-white/10 p-6">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="font-bold text-gray-800">نمودار فروش هفتگی</h3>
+            <h3 className="font-bold text-white">نمودار فروش هفتگی</h3>
             <div className="flex items-center gap-2">
-              <span className="text-xs text-gray-500">هفته جاری</span>
+              <span className="text-xs text-gray-400">هفته جاری</span>
               <ChevronDown className="w-4 h-4 text-gray-400" />
             </div>
           </div>
@@ -174,31 +174,31 @@ function DashboardSection() {
               { day: 'جمعه', value: 55, amount: '۷۲M' },
             ].map((item, i) => (
               <div key={i} className="flex-1 flex flex-col items-center gap-2 group">
-                <span className="text-[10px] text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity">{item.amount}</span>
+                <span className="text-[10px] text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity">{item.amount}</span>
                 <div className="w-full relative rounded-t-xl overflow-hidden" style={{ height: `${item.value}%` }}>
-                  <div className="absolute inset-0 bg-gradient-to-t from-violet-600 to-indigo-400 rounded-t-xl group-hover:from-violet-500 group-hover:to-indigo-300 transition-all"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-cyan-500 to-purple-500 rounded-t-xl group-hover:from-cyan-400 group-hover:to-purple-400 transition-all animate-glow"></div>
                 </div>
-                <span className="text-[10px] text-gray-500">{item.day}</span>
+                <span className="text-[10px] text-gray-400">{item.day}</span>
               </div>
             ))}
           </div>
         </div>
-        <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
-          <h3 className="font-bold text-gray-800 mb-6">سهم دسته‌بندی‌ها</h3>
+        <div className="glass rounded-2xl border border-white/10 p-6">
+          <h3 className="font-bold text-white mb-6">سهم دسته‌بندی‌ها</h3>
           <div className="space-y-5">
             {[
-              { name: 'موبایل و تبلت', percent: 35, color: 'from-blue-500 to-indigo-500' },
-              { name: 'لپ‌تاپ', percent: 25, color: 'from-violet-500 to-purple-500' },
-              { name: 'گیمینگ', percent: 20, color: 'from-emerald-500 to-green-500' },
+              { name: 'موبایل و تبلت', percent: 35, color: 'from-cyan-500 to-blue-500' },
+              { name: 'لپ‌تاپ', percent: 25, color: 'from-purple-500 to-pink-500' },
+              { name: 'گیمینگ', percent: 20, color: 'from-green-500 to-emerald-500' },
               { name: 'لوازم جانبی', percent: 12, color: 'from-amber-500 to-orange-500' },
-              { name: 'سایر', percent: 8, color: 'from-gray-400 to-gray-500' },
+              { name: 'سایر', percent: 8, color: 'from-gray-500 to-gray-600' },
             ].map((cat, i) => (
               <div key={i}>
                 <div className="flex justify-between text-sm mb-2">
-                  <span className="text-gray-600">{cat.name}</span>
-                  <span className="text-gray-800 font-bold">{cat.percent}%</span>
+                  <span className="text-gray-300">{cat.name}</span>
+                  <span className="text-white font-bold">{cat.percent}%</span>
                 </div>
-                <div className="w-full h-2.5 bg-gray-100 rounded-full overflow-hidden">
+                <div className="w-full h-2.5 bg-white/5 rounded-full overflow-hidden">
                   <div className={`h-full bg-gradient-to-l ${cat.color} rounded-full transition-all duration-1000`} style={{ width: `${cat.percent}%` }}></div>
                 </div>
               </div>
@@ -209,31 +209,31 @@ function DashboardSection() {
 
       {/* Recent Orders & Alerts */}
       <div className="grid lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+        <div className="lg:col-span-2 glass rounded-2xl border border-white/10 p-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="font-bold text-gray-800">سفارش‌های اخیر</h3>
-            <button className="text-sm text-violet-600 hover:text-violet-700 font-medium">مشاهده همه</button>
+            <h3 className="font-bold text-white">سفارش‌های اخیر</h3>
+            <button onClick={() => dispatch({ type: 'SET_ADMIN_TAB', payload: 'orders' })} className="text-sm text-cyan-400 hover:text-cyan-300 font-medium">مشاهده همه</button>
           </div>
           <div className="space-y-3">
             {recentOrders.map(order => (
-              <div key={order.id} className="flex items-center justify-between p-4 rounded-xl border border-gray-100 hover:border-violet-200 hover:bg-violet-50/30 transition-all">
+              <div key={order.id} className="flex items-center justify-between p-4 rounded-xl glass border border-white/10 hover:border-cyan-500/50 transition-all">
                 <div className="flex items-center gap-3">
                   <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-                    order.status === 'delivered' ? 'bg-green-100 text-green-600' :
-                    order.status === 'shipped' ? 'bg-blue-100 text-blue-600' :
-                    order.status === 'processing' ? 'bg-amber-100 text-amber-600' :
-                    order.status === 'cancelled' ? 'bg-red-100 text-red-600' :
-                    'bg-gray-100 text-gray-600'
+                    order.status === 'delivered' ? 'bg-green-500/20 text-green-400' :
+                    order.status === 'shipped' ? 'bg-blue-500/20 text-blue-400' :
+                    order.status === 'processing' ? 'bg-amber-500/20 text-amber-400' :
+                    order.status === 'cancelled' ? 'bg-red-500/20 text-red-400' :
+                    'bg-gray-500/20 text-gray-400'
                   }`}>
                     <ShoppingCart className="w-5 h-5" />
                   </div>
                   <div>
-                    <p className="font-mono text-xs text-violet-600 font-medium">{order.id}</p>
-                    <p className="text-sm text-gray-700">{order.customer}</p>
+                    <p className="font-mono text-xs text-cyan-400 font-medium">{order.id}</p>
+                    <p className="text-sm text-gray-300">{order.customer}</p>
                   </div>
                 </div>
                 <div className="text-left">
-                  <p className="font-bold text-sm text-gray-800">{formatPrice(order.total)}</p>
+                  <p className="font-bold text-sm text-white">{formatPrice(order.total)}</p>
                   <OrderStatusBadge status={order.status} />
                 </div>
               </div>
@@ -242,26 +242,26 @@ function DashboardSection() {
         </div>
 
         <div className="space-y-4">
-          <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
-            <h3 className="font-bold text-gray-800 mb-4 flex items-center gap-2">
-              <AlertTriangle className="w-4 h-4 text-amber-500" />
+          <div className="glass rounded-2xl border border-white/10 p-6">
+            <h3 className="font-bold text-white mb-4 flex items-center gap-2">
+              <AlertTriangle className="w-4 h-4 text-amber-400" />
               هشدار موجودی
             </h3>
             <div className="space-y-3">
               {lowStockItems.map((item, i) => (
-                <div key={i} className="flex items-center justify-between p-2 rounded-lg hover:bg-gray-50">
-                  <span className="text-xs text-gray-600 truncate max-w-[140px]">{item.name}</span>
-                  <span className={`text-[10px] font-bold px-2 py-1 rounded-lg ${item.stock < 10 ? 'bg-red-50 text-red-600' : 'bg-amber-50 text-amber-600'}`}>
+                <div key={i} className="flex items-center justify-between p-2 rounded-lg hover:bg-white/5">
+                  <span className="text-xs text-gray-300 truncate max-w-[140px]">{item.name}</span>
+                  <span className={`text-[10px] font-bold px-2 py-1 rounded-lg ${item.stock < 10 ? 'bg-red-500/20 text-red-400' : 'bg-amber-500/20 text-amber-400'}`}>
                     {item.stock} عدد
                   </span>
                 </div>
               ))}
             </div>
           </div>
-          <div className="bg-gradient-to-br from-violet-600 to-indigo-700 rounded-2xl p-6 text-white shadow-lg shadow-violet-200">
+          <div className="bg-gradient-to-br from-cyan-500 to-purple-600 rounded-2xl p-6 text-white shadow-lg shadow-cyan-500/50">
             <h3 className="font-bold mb-2">عملکرد ماهانه</h3>
             <p className="text-3xl font-bold mb-1">۸۵۶M</p>
-            <p className="text-xs text-violet-200">تومان فروش این ماه</p>
+            <p className="text-xs text-cyan-100">تومان فروش این ماه</p>
             <div className="mt-4 flex items-center gap-2">
               <ArrowUpRight className="w-4 h-4" />
               <span className="text-xs">۲۳% نسبت به ماه قبل</span>
@@ -296,12 +296,12 @@ function ProductsSection({ showAddProduct, setShowAddProduct }: { showAddProduct
     <div className="animate-fade-in space-y-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-800">مدیریت محصولات</h1>
-          <p className="text-sm text-gray-500 mt-1">{filteredProducts.length} محصول از {allProducts.length}</p>
+          <h1 className="text-2xl font-bold gradient-text">مدیریت محصولات</h1>
+          <p className="text-sm text-gray-400 mt-1">{filteredProducts.length} محصول از {allProducts.length}</p>
         </div>
         <button
           onClick={() => setShowAddProduct(true)}
-          className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-l from-violet-600 to-indigo-600 text-white rounded-xl text-sm font-medium hover:shadow-lg hover:shadow-violet-200 transition-all"
+          className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-l from-cyan-500 to-purple-600 text-white rounded-xl text-sm font-medium hover:shadow-lg hover:shadow-cyan-500/50 transition-all transform hover:scale-105"
         >
           <Plus className="w-4 h-4" />
           افزودن محصول جدید
@@ -309,7 +309,7 @@ function ProductsSection({ showAddProduct, setShowAddProduct }: { showAddProduct
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-2xl border border-gray-100 p-4 shadow-sm">
+      <div className="glass rounded-2xl border border-white/10 p-4">
         <div className="flex flex-col md:flex-row items-stretch md:items-center gap-3">
           <div className="relative flex-1">
             <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -318,29 +318,29 @@ function ProductsSection({ showAddProduct, setShowAddProduct }: { showAddProduct
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="جستجوی نام محصول یا برند..."
-              className="w-full pr-10 pl-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100"
+              className="w-full pr-10 pl-4 py-2.5 glass border border-white/10 rounded-xl text-sm text-white placeholder-gray-400 focus:outline-none focus:border-cyan-500/50"
             />
           </div>
           <select
             value={filterCategory}
             onChange={(e) => setFilterCategory(e.target.value)}
-            className="px-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-violet-400"
+            className="px-4 py-2.5 glass border border-white/10 rounded-xl text-sm text-white focus:outline-none focus:border-cyan-500/50"
           >
             <option value="">همه دسته‌بندی‌ها</option>
             {categories.map(cat => (
               <option key={cat.id} value={cat.id}>{cat.name}</option>
             ))}
           </select>
-          <div className="flex items-center gap-1 bg-gray-100 rounded-xl p-1">
+          <div className="flex items-center gap-1 glass rounded-xl p-1">
             <button
               onClick={() => setViewMode('table')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium ${viewMode === 'table' ? 'bg-white shadow-sm text-violet-600' : 'text-gray-500'}`}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium ${viewMode === 'table' ? 'bg-gradient-to-l from-cyan-500 to-purple-600 text-white shadow-lg' : 'text-gray-400'}`}
             >
               جدول
             </button>
             <button
               onClick={() => setViewMode('grid')}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium ${viewMode === 'grid' ? 'bg-white shadow-sm text-violet-600' : 'text-gray-500'}`}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium ${viewMode === 'grid' ? 'bg-gradient-to-l from-cyan-500 to-purple-600 text-white shadow-lg' : 'text-gray-400'}`}
             >
               شبکه
             </button>
@@ -350,11 +350,11 @@ function ProductsSection({ showAddProduct, setShowAddProduct }: { showAddProduct
 
       {/* Products List */}
       {viewMode === 'table' ? (
-        <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm">
+        <div className="glass rounded-2xl border border-white/10 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-gray-50/80 border-b border-gray-100">
-                <tr className="text-gray-500">
+              <thead className="bg-white/5 border-b border-white/10">
+                <tr className="text-gray-400">
                   <th className="text-right p-4 font-medium">محصول</th>
                   <th className="text-right p-4 font-medium">دسته‌بندی</th>
                   <th className="text-right p-4 font-medium">قیمت</th>
@@ -365,31 +365,31 @@ function ProductsSection({ showAddProduct, setShowAddProduct }: { showAddProduct
               </thead>
               <tbody>
                 {filteredProducts.map(product => (
-                  <tr key={product.id} className="border-b border-gray-50 hover:bg-violet-50/30 transition-colors">
+                  <tr key={product.id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
                     <td className="p-4">
                       <div className="flex items-center gap-3">
-                        <img src={product.image} alt="" className="w-12 h-12 object-contain rounded-xl bg-gray-50 p-1" />
+                        <img src={product.image} alt="" className="w-12 h-12 object-contain rounded-xl glass p-1" />
                         <div>
-                          <p className="font-medium text-gray-800 text-xs">{product.name}</p>
+                          <p className="font-medium text-white text-xs">{product.name}</p>
                           <p className="text-[10px] text-gray-400 mt-0.5">{product.brand}</p>
                         </div>
                       </div>
                     </td>
-                    <td className="p-4 text-gray-600 text-xs">{product.subcategory}</td>
-                    <td className="p-4 text-gray-700 text-xs font-medium">{formatPrice(product.price)}</td>
+                    <td className="p-4 text-gray-300 text-xs">{product.subcategory}</td>
+                    <td className="p-4 text-white text-xs font-medium">{formatPrice(product.price)}</td>
                     <td className="p-4">
-                      <span className={`text-xs px-2.5 py-1 rounded-lg font-medium ${product.stock < 10 ? 'bg-red-50 text-red-600' : product.stock < 20 ? 'bg-amber-50 text-amber-600' : 'bg-green-50 text-green-600'}`}>
+                      <span className={`text-xs px-2.5 py-1 rounded-lg font-medium ${product.stock < 10 ? 'bg-red-500/20 text-red-400' : product.stock < 20 ? 'bg-amber-500/20 text-amber-400' : 'bg-green-500/20 text-green-400'}`}>
                         {product.stock} عدد
                       </span>
                     </td>
                     <td className="p-4">
-                      <span className="text-xs px-2.5 py-1 rounded-lg bg-blue-50 text-blue-600 font-medium">فعال</span>
+                      <span className="text-xs px-2.5 py-1 rounded-lg bg-cyan-500/20 text-cyan-400 font-medium">فعال</span>
                     </td>
                     <td className="p-4">
                       <div className="flex items-center gap-1">
-                        <button className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"><Eye className="w-4 h-4" /></button>
-                        <button onClick={() => setEditingProduct(product)} className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"><Edit className="w-4 h-4" /></button>
-                        <button onClick={() => handleDelete(product.id)} className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"><Trash2 className="w-4 h-4" /></button>
+                        <button className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-cyan-400 hover:bg-cyan-500/10 rounded-lg transition-colors"><Eye className="w-4 h-4" /></button>
+                        <button onClick={() => setEditingProduct(product)} className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-amber-400 hover:bg-amber-500/10 rounded-lg transition-colors"><Edit className="w-4 h-4" /></button>
+                        <button onClick={() => handleDelete(product.id)} className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"><Trash2 className="w-4 h-4" /></button>
                       </div>
                     </td>
                   </tr>
@@ -401,15 +401,15 @@ function ProductsSection({ showAddProduct, setShowAddProduct }: { showAddProduct
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {filteredProducts.map(product => (
-            <div key={product.id} className="bg-white rounded-2xl border border-gray-100 p-4 hover:shadow-lg transition-all group">
+            <div key={product.id} className="glass rounded-2xl border border-white/10 p-4 hover:border-cyan-500/50 hover:shadow-lg hover:shadow-cyan-500/20 transition-all group">
               <img src={product.image} alt="" className="w-full h-32 object-contain mb-3" />
-              <p className="text-xs font-medium text-gray-800 line-clamp-2 mb-1">{product.name}</p>
+              <p className="text-xs font-medium text-white line-clamp-2 mb-1">{product.name}</p>
               <p className="text-[10px] text-gray-400 mb-2">{product.brand}</p>
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-violet-600">{formatPrice(product.price)}</span>
+                <span className="text-xs font-bold gradient-text">{formatPrice(product.price)}</span>
                 <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <button onClick={() => setEditingProduct(product)} className="w-7 h-7 flex items-center justify-center bg-amber-50 text-amber-600 rounded-lg"><Edit className="w-3.5 h-3.5" /></button>
-                  <button onClick={() => handleDelete(product.id)} className="w-7 h-7 flex items-center justify-center bg-red-50 text-red-600 rounded-lg"><Trash2 className="w-3.5 h-3.5" /></button>
+                  <button onClick={() => setEditingProduct(product)} className="w-7 h-7 flex items-center justify-center bg-amber-500/20 text-amber-400 rounded-lg"><Edit className="w-3.5 h-3.5" /></button>
+                  <button onClick={() => handleDelete(product.id)} className="w-7 h-7 flex items-center justify-center bg-red-500/20 text-red-400 rounded-lg"><Trash2 className="w-3.5 h-3.5" /></button>
                 </div>
               </div>
             </div>
@@ -440,54 +440,54 @@ function ProductModal({ product, onClose }: { product: Product | null; onClose: 
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose}></div>
-      <div className="relative bg-white rounded-3xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl animate-fade-in">
+      <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={onClose}></div>
+      <div className="relative glass rounded-3xl p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl animate-fade-in border border-white/20">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold text-gray-800">{product ? 'ویرایش محصول' : 'افزودن محصول جدید'}</h2>
-          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100">
-            <X className="w-5 h-5 text-gray-500" />
+          <h2 className="text-xl font-bold gradient-text">{product ? 'ویرایش محصول' : 'افزودن محصول جدید'}</h2>
+          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/10">
+            <X className="w-5 h-5 text-gray-300" />
           </button>
         </div>
         <div className="grid md:grid-cols-2 gap-4">
           <div className="md:col-span-2">
-            <label className="text-sm text-gray-600 mb-1 block">نام محصول</label>
-            <input type="text" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100" />
+            <label className="text-sm text-gray-300 mb-1 block">نام محصول</label>
+            <input type="text" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full px-4 py-3 glass border border-white/10 rounded-xl text-sm text-white focus:outline-none focus:border-cyan-500/50" />
           </div>
           <div>
-            <label className="text-sm text-gray-600 mb-1 block">برند</label>
-            <input type="text" value={formData.brand} onChange={(e) => setFormData({...formData, brand: e.target.value})} className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-violet-400" />
+            <label className="text-sm text-gray-300 mb-1 block">برند</label>
+            <input type="text" value={formData.brand} onChange={(e) => setFormData({...formData, brand: e.target.value})} className="w-full px-4 py-3 glass border border-white/10 rounded-xl text-sm text-white focus:outline-none focus:border-cyan-500/50" />
           </div>
           <div>
-            <label className="text-sm text-gray-600 mb-1 block">دسته‌بندی</label>
-            <select value={formData.category} onChange={(e) => setFormData({...formData, category: e.target.value})} className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-violet-400">
+            <label className="text-sm text-gray-300 mb-1 block">دسته‌بندی</label>
+            <select value={formData.category} onChange={(e) => setFormData({...formData, category: e.target.value})} className="w-full px-4 py-3 glass border border-white/10 rounded-xl text-sm text-white focus:outline-none focus:border-cyan-500/50">
               <option value="">انتخاب کنید</option>
               {categories.map(cat => <option key={cat.id} value={cat.id}>{cat.name}</option>)}
             </select>
           </div>
           <div>
-            <label className="text-sm text-gray-600 mb-1 block">قیمت (تومان)</label>
-            <input type="text" value={formData.price} onChange={(e) => setFormData({...formData, price: e.target.value})} className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-violet-400" />
+            <label className="text-sm text-gray-300 mb-1 block">قیمت (تومان)</label>
+            <input type="text" value={formData.price} onChange={(e) => setFormData({...formData, price: e.target.value})} className="w-full px-4 py-3 glass border border-white/10 rounded-xl text-sm text-white focus:outline-none focus:border-cyan-500/50" />
           </div>
           <div>
-            <label className="text-sm text-gray-600 mb-1 block">موجودی</label>
-            <input type="text" value={formData.stock} onChange={(e) => setFormData({...formData, stock: e.target.value})} className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-violet-400" />
+            <label className="text-sm text-gray-300 mb-1 block">موجودی</label>
+            <input type="text" value={formData.stock} onChange={(e) => setFormData({...formData, stock: e.target.value})} className="w-full px-4 py-3 glass border border-white/10 rounded-xl text-sm text-white focus:outline-none focus:border-cyan-500/50" />
           </div>
           <div className="md:col-span-2">
-            <label className="text-sm text-gray-600 mb-1 block">توضیحات</label>
-            <textarea value={formData.description} onChange={(e) => setFormData({...formData, description: e.target.value})} className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-violet-400 resize-none h-24" />
+            <label className="text-sm text-gray-300 mb-1 block">توضیحات</label>
+            <textarea value={formData.description} onChange={(e) => setFormData({...formData, description: e.target.value})} className="w-full px-4 py-3 glass border border-white/10 rounded-xl text-sm text-white focus:outline-none focus:border-cyan-500/50 resize-none h-24" />
           </div>
           <div className="md:col-span-2">
-            <label className="text-sm text-gray-600 mb-1 block">تصویر محصول</label>
-            <div className="border-2 border-dashed border-gray-200 rounded-xl p-8 text-center hover:border-violet-300 transition-colors cursor-pointer">
-              <Package className="w-10 h-10 text-gray-300 mx-auto mb-2" />
-              <p className="text-sm text-gray-500">فایل را بکشید و رها کنید یا کلیک کنید</p>
-              <p className="text-xs text-gray-400 mt-1">PNG, JPG تا ۵ مگابایت</p>
+            <label className="text-sm text-gray-300 mb-1 block">تصویر محصول</label>
+            <div className="border-2 border-dashed border-white/20 rounded-xl p-8 text-center hover:border-cyan-500/50 transition-colors cursor-pointer">
+              <Package className="w-10 h-10 text-gray-400 mx-auto mb-2" />
+              <p className="text-sm text-gray-300">فایل را بکشید و رها کنید یا کلیک کنید</p>
+              <p className="text-xs text-gray-500 mt-1">PNG, JPG تا ۵ مگابایت</p>
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-end gap-3 mt-6 pt-6 border-t">
-          <button onClick={onClose} className="px-6 py-2.5 border border-gray-200 rounded-xl text-sm text-gray-600 hover:bg-gray-50">انصراف</button>
-          <button onClick={onClose} className="px-6 py-2.5 bg-gradient-to-l from-violet-600 to-indigo-600 text-white rounded-xl text-sm font-medium hover:shadow-lg hover:shadow-violet-200 flex items-center gap-2">
+        <div className="flex items-center justify-end gap-3 mt-6 pt-6 border-t border-white/10">
+          <button onClick={onClose} className="px-6 py-2.5 glass border border-white/10 rounded-xl text-sm text-gray-300 hover:border-cyan-500/50">انصراف</button>
+          <button onClick={onClose} className="px-6 py-2.5 bg-gradient-to-l from-cyan-500 to-purple-600 text-white rounded-xl text-sm font-medium hover:shadow-lg hover:shadow-cyan-500/50 flex items-center gap-2">
             <Save className="w-4 h-4" />
             {product ? 'بروزرسانی' : 'ذخیره محصول'}
           </button>
@@ -526,33 +526,33 @@ function OrdersSection({ showOrderDetail, setShowOrderDetail }: { showOrderDetai
   return (
     <div className="animate-fade-in space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-800">مدیریت سفارش‌ها</h1>
-        <p className="text-sm text-gray-500 mt-1">مدیریت و پیگیری تمام سفارش‌ها</p>
+        <h1 className="text-2xl font-bold gradient-text">مدیریت سفارش‌ها</h1>
+        <p className="text-sm text-gray-400 mt-1">مدیریت و پیگیری تمام سفارش‌ها</p>
       </div>
 
       {/* Status Cards */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
         {[
-          { label: 'همه', value: statusCounts.all, color: 'border-gray-300', bg: 'bg-gray-50' },
-          { label: 'در انتظار', value: statusCounts.pending, color: 'border-amber-400', bg: 'bg-amber-50' },
-          { label: 'در حال پردازش', value: statusCounts.processing, color: 'border-blue-400', bg: 'bg-blue-50' },
-          { label: 'ارسال شده', value: statusCounts.shipped, color: 'border-indigo-400', bg: 'bg-indigo-50' },
-          { label: 'تحویل شده', value: statusCounts.delivered, color: 'border-green-400', bg: 'bg-green-50' },
-          { label: 'لغو شده', value: statusCounts.cancelled, color: 'border-red-400', bg: 'bg-red-50' },
+          { label: 'همه', value: statusCounts.all, color: 'border-gray-500', bg: 'glass' },
+          { label: 'در انتظار', value: statusCounts.pending, color: 'border-amber-500', bg: 'glass' },
+          { label: 'در حال پردازش', value: statusCounts.processing, color: 'border-blue-500', bg: 'glass' },
+          { label: 'ارسال شده', value: statusCounts.shipped, color: 'border-indigo-500', bg: 'glass' },
+          { label: 'تحویل شده', value: statusCounts.delivered, color: 'border-green-500', bg: 'glass' },
+          { label: 'لغو شده', value: statusCounts.cancelled, color: 'border-red-500', bg: 'glass' },
         ].map((item, i) => (
           <button
             key={i}
             onClick={() => setFilterStatus(i === 0 ? '' : ['pending', 'processing', 'shipped', 'delivered', 'cancelled'][i - 1])}
-            className={`${item.bg} rounded-xl border-r-4 ${item.color} p-4 text-right hover:shadow-md transition-all ${filterStatus === (i === 0 ? '' : ['pending', 'processing', 'shipped', 'delivered', 'cancelled'][i - 1]) ? 'ring-2 ring-violet-300' : ''}`}
+            className={`${item.bg} rounded-xl border-r-4 ${item.color} p-4 text-right hover:shadow-lg hover:border-cyan-500/50 transition-all ${filterStatus === (i === 0 ? '' : ['pending', 'processing', 'shipped', 'delivered', 'cancelled'][i - 1]) ? 'ring-2 ring-cyan-500/50 neon-border' : ''}`}
           >
-            <p className="text-2xl font-bold text-gray-800">{item.value}</p>
-            <p className="text-xs text-gray-500">{item.label}</p>
+            <p className="text-2xl font-bold text-white">{item.value}</p>
+            <p className="text-xs text-gray-400">{item.label}</p>
           </button>
         ))}
       </div>
 
       {/* Search */}
-      <div className="bg-white rounded-2xl border border-gray-100 p-4 shadow-sm">
+      <div className="glass rounded-2xl border border-white/10 p-4">
         <div className="relative">
           <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
           <input
@@ -560,17 +560,17 @@ function OrdersSection({ showOrderDetail, setShowOrderDetail }: { showOrderDetai
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="جستجوی کد سفارش یا نام مشتری..."
-            className="w-full pr-10 pl-4 py-2.5 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100"
+            className="w-full pr-10 pl-4 py-2.5 glass border border-white/10 rounded-xl text-sm text-white placeholder-gray-400 focus:outline-none focus:border-cyan-500/50"
           />
         </div>
       </div>
 
       {/* Orders Table */}
-      <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm">
+      <div className="glass rounded-2xl border border-white/10 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
-            <thead className="bg-gray-50/80 border-b border-gray-100">
-              <tr className="text-gray-500">
+            <thead className="bg-white/5 border-b border-white/10">
+              <tr className="text-gray-400">
                 <th className="text-right p-4 font-medium">کد سفارش</th>
                 <th className="text-right p-4 font-medium">مشتری</th>
                 <th className="text-right p-4 font-medium">مبلغ</th>
@@ -581,22 +581,22 @@ function OrdersSection({ showOrderDetail, setShowOrderDetail }: { showOrderDetai
             </thead>
             <tbody>
               {filteredOrders.map(order => (
-                <tr key={order.id} className="border-b border-gray-50 hover:bg-violet-50/30 transition-colors">
-                  <td className="p-4 font-mono text-xs text-violet-600 font-medium">{order.id}</td>
+                <tr key={order.id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                  <td className="p-4 font-mono text-xs text-cyan-400 font-medium">{order.id}</td>
                   <td className="p-4">
-                    <p className="text-gray-700 text-xs">{order.customer}</p>
+                    <p className="text-white text-xs">{order.customer}</p>
                     <p className="text-[10px] text-gray-400">{order.phone}</p>
                   </td>
-                  <td className="p-4 text-gray-700 text-xs font-medium">{formatPrice(order.total)}</td>
-                  <td className="p-4 text-gray-500 text-xs">{order.date}</td>
+                  <td className="p-4 text-white text-xs font-medium">{formatPrice(order.total)}</td>
+                  <td className="p-4 text-gray-400 text-xs">{order.date}</td>
                   <td className="p-4"><OrderStatusBadge status={order.status} /></td>
                   <td className="p-4">
                     <div className="flex items-center gap-1">
-                      <button onClick={() => setShowOrderDetail(order.id)} className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg"><Eye className="w-4 h-4" /></button>
+                      <button onClick={() => setShowOrderDetail(order.id)} className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-cyan-400 hover:bg-cyan-500/10 rounded-lg"><Eye className="w-4 h-4" /></button>
                       <select
                         value={order.status}
                         onChange={(e) => updateStatus(order.id, e.target.value as any)}
-                        className="text-xs px-2 py-1 border border-gray-200 rounded-lg focus:outline-none"
+                        className="text-xs px-2 py-1 glass border border-white/10 rounded-lg text-white focus:outline-none focus:border-cyan-500/50"
                       >
                         <option value="pending">در انتظار</option>
                         <option value="processing">در حال پردازش</option>
@@ -616,49 +616,49 @@ function OrdersSection({ showOrderDetail, setShowOrderDetail }: { showOrderDetai
       {/* Order Detail Modal */}
       {selectedOrder && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowOrderDetail(null)}></div>
-          <div className="relative bg-white rounded-3xl p-6 w-full max-w-lg shadow-2xl animate-fade-in">
+          <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={() => setShowOrderDetail(null)}></div>
+          <div className="relative glass rounded-3xl p-6 w-full max-w-lg shadow-2xl animate-fade-in border border-white/20">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-gray-800">جزئیات سفارش</h2>
-              <button onClick={() => setShowOrderDetail(null)} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-100">
-                <X className="w-5 h-5 text-gray-500" />
+              <h2 className="text-xl font-bold gradient-text">جزئیات سفارش</h2>
+              <button onClick={() => setShowOrderDetail(null)} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/10">
+                <X className="w-5 h-5 text-gray-300" />
               </button>
             </div>
             <div className="space-y-4">
-              <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
-                <span className="text-sm text-gray-500">کد سفارش</span>
-                <span className="font-mono text-sm font-bold text-violet-600">{selectedOrder.id}</span>
+              <div className="flex items-center justify-between p-4 glass rounded-xl">
+                <span className="text-sm text-gray-300">کد سفارش</span>
+                <span className="font-mono text-sm font-bold text-cyan-400">{selectedOrder.id}</span>
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <div className="p-3 bg-gray-50 rounded-xl">
-                  <p className="text-xs text-gray-500 mb-1">مشتری</p>
-                  <p className="text-sm font-medium text-gray-800">{selectedOrder.customer}</p>
+                <div className="p-3 glass rounded-xl">
+                  <p className="text-xs text-gray-400 mb-1">مشتری</p>
+                  <p className="text-sm font-medium text-white">{selectedOrder.customer}</p>
                 </div>
-                <div className="p-3 bg-gray-50 rounded-xl">
-                  <p className="text-xs text-gray-500 mb-1">موبایل</p>
-                  <p className="text-sm font-medium text-gray-800">{selectedOrder.phone}</p>
+                <div className="p-3 glass rounded-xl">
+                  <p className="text-xs text-gray-400 mb-1">موبایل</p>
+                  <p className="text-sm font-medium text-white">{selectedOrder.phone}</p>
                 </div>
-                <div className="p-3 bg-gray-50 rounded-xl">
-                  <p className="text-xs text-gray-500 mb-1">مبلغ</p>
-                  <p className="text-sm font-bold text-gray-800">{formatPrice(selectedOrder.total)}</p>
+                <div className="p-3 glass rounded-xl">
+                  <p className="text-xs text-gray-400 mb-1">مبلغ</p>
+                  <p className="text-sm font-bold text-white">{formatPrice(selectedOrder.total)}</p>
                 </div>
-                <div className="p-3 bg-gray-50 rounded-xl">
-                  <p className="text-xs text-gray-500 mb-1">روش پرداخت</p>
-                  <p className="text-sm font-medium text-gray-800">{selectedOrder.paymentMethod}</p>
+                <div className="p-3 glass rounded-xl">
+                  <p className="text-xs text-gray-400 mb-1">روش پرداخت</p>
+                  <p className="text-sm font-medium text-white">{selectedOrder.paymentMethod}</p>
                 </div>
               </div>
-              <div className="p-3 bg-gray-50 rounded-xl">
-                <p className="text-xs text-gray-500 mb-1">آدرس</p>
-                <p className="text-sm text-gray-800">{selectedOrder.address}</p>
+              <div className="p-3 glass rounded-xl">
+                <p className="text-xs text-gray-400 mb-1">آدرس</p>
+                <p className="text-sm text-gray-300">{selectedOrder.address}</p>
               </div>
               {selectedOrder.trackingCode && (
-                <div className="p-3 bg-blue-50 rounded-xl">
-                  <p className="text-xs text-blue-600 mb-1">کد رهگیری</p>
-                  <p className="text-sm font-bold text-blue-700 font-mono">{selectedOrder.trackingCode}</p>
+                <div className="p-3 bg-cyan-500/10 rounded-xl border border-cyan-500/20">
+                  <p className="text-xs text-cyan-400 mb-1">کد رهگیری</p>
+                  <p className="text-sm font-bold text-cyan-300 font-mono">{selectedOrder.trackingCode}</p>
                 </div>
               )}
-              <div className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
-                <span className="text-sm text-gray-500">وضعیت</span>
+              <div className="flex items-center justify-between p-4 glass rounded-xl">
+                <span className="text-sm text-gray-300">وضعیت</span>
                 <OrderStatusBadge status={selectedOrder.status} />
               </div>
             </div>
@@ -1208,11 +1208,11 @@ function SettingsSection() {
 
 function OrderStatusBadge({ status }: { status: string }) {
   const config: Record<string, { label: string; className: string }> = {
-    pending: { label: 'در انتظار پرداخت', className: 'bg-amber-50 text-amber-700' },
-    processing: { label: 'در حال پردازش', className: 'bg-blue-50 text-blue-700' },
-    shipped: { label: 'ارسال شده', className: 'bg-indigo-50 text-indigo-700' },
-    delivered: { label: 'تحویل شده', className: 'bg-green-50 text-green-700' },
-    cancelled: { label: 'لغو شده', className: 'bg-red-50 text-red-700' },
+    pending: { label: 'در انتظار پرداخت', className: 'bg-amber-500/20 text-amber-400' },
+    processing: { label: 'در حال پردازش', className: 'bg-blue-500/20 text-blue-400' },
+    shipped: { label: 'ارسال شده', className: 'bg-indigo-500/20 text-indigo-400' },
+    delivered: { label: 'تحویل شده', className: 'bg-green-500/20 text-green-400' },
+    cancelled: { label: 'لغو شده', className: 'bg-red-500/20 text-red-400' },
   };
   const { label, className } = config[status] || config.pending;
   return <span className={`text-[10px] px-2 py-1 rounded-lg font-medium ${className}`}>{label}</span>;
