@@ -19,21 +19,21 @@ export default function HomePage() {
       </section>
 
       {/* Trust Badges */}
-      <section className="relative z-10 -mt-20">
+      <section className="py-8 bg-white border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { icon: Truck, title: 'ارسال سریع', desc: 'تحویل اکسپرس به سراسر کشور', color: 'from-cyan-500 to-blue-500' },
-              { icon: Shield, title: 'ضمانت اصالت', desc: 'تمامی محصولات اورجینال', color: 'from-purple-500 to-pink-500' },
-              { icon: Headphones, title: 'پشتیبانی ۲۴/۷', desc: 'تیم پشتیبانی در خدمت شما', color: 'from-green-500 to-emerald-500' },
-              { icon: Award, title: 'بهترین قیمت', desc: 'تضمین بهترین قیمت بازار', color: 'from-amber-500 to-orange-500' },
+              { icon: Truck, title: 'ارسال سریع', desc: 'تحویل اکسپرس به سراسر کشور', color: 'from-blue-500 to-indigo-600' },
+              { icon: Shield, title: 'ضمانت اصالت', desc: 'تمامی محصولات اورجینال', color: 'from-purple-500 to-violet-600' },
+              { icon: Headphones, title: 'پشتیبانی ۲۴/۷', desc: 'تیم پشتیبانی در خدمت شما', color: 'from-emerald-500 to-teal-600' },
+              { icon: Award, title: 'بهترین قیمت', desc: 'تضمین بهترین قیمت بازار', color: 'from-orange-500 to-amber-600' },
             ].map((item, i) => (
-              <div key={i} className="glass rounded-2xl p-5 hover:scale-105 transition-all duration-300 group">
-                <div className={`w-12 h-12 bg-gradient-to-br ${item.color} rounded-xl flex items-center justify-center mb-3 shadow-lg group-hover:shadow-2xl transition-all`}>
+              <div key={i} className="bg-white rounded-2xl p-5 border border-gray-100 card-hover hover:border-indigo-200 shadow-soft hover:shadow-hover group">
+                <div className={`w-12 h-12 bg-gradient-to-br ${item.color} rounded-xl flex items-center justify-center mb-3 shadow-lg group-hover:scale-110 transition-transform`}>
                   <item.icon className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="font-bold text-white text-sm mb-1">{item.title}</h3>
-                <p className="text-xs text-gray-400">{item.desc}</p>
+                <h3 className="font-bold text-gray-800 text-sm mb-1">{item.title}</h3>
+                <p className="text-xs text-gray-500">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -44,12 +44,12 @@ export default function HomePage() {
       <section className="max-w-7xl mx-auto px-4 py-16">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h2 className="text-3xl font-bold text-white mb-2">دسته‌بندی محصولات</h2>
-            <p className="text-gray-400">محصولات مورد نظر خود را پیدا کنید</p>
+            <h2 className="text-3xl font-bold text-gray-800 mb-2">دسته‌بندی محصولات</h2>
+            <p className="text-gray-500">محصولات مورد نظر خود را پیدا کنید</p>
           </div>
           <button
             onClick={() => dispatch({ type: 'SET_PAGE', payload: 'products' })}
-            className="text-cyan-400 text-sm font-medium flex items-center gap-1 hover:text-cyan-300 transition-colors"
+            className="text-indigo-600 text-sm font-medium flex items-center gap-1 hover:text-indigo-700 transition-colors"
           >
             مشاهده همه
             <ChevronLeft className="w-4 h-4" />
@@ -63,35 +63,33 @@ export default function HomePage() {
                 dispatch({ type: 'SET_CATEGORY', payload: cat.id });
                 dispatch({ type: 'SET_PAGE', payload: 'products' });
               }}
-              className="group glass rounded-2xl p-4 text-center hover:scale-105 hover:border-cyan-500/50 transition-all duration-300"
+              className="group bg-white rounded-2xl p-4 text-center border border-gray-100 card-hover hover:border-indigo-200 shadow-soft hover:shadow-hover"
             >
-              <div className="w-14 h-14 mx-auto bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-xl flex items-center justify-center mb-3 group-hover:from-cyan-500/30 group-hover:to-purple-500/30 transition-all">
+              <div className="w-14 h-14 mx-auto bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl flex items-center justify-center mb-3 group-hover:from-indigo-100 group-hover:to-purple-100 transition-all">
                 <CategoryIcon name={cat.icon} />
               </div>
-              <h3 className="text-xs font-medium text-white group-hover:text-cyan-400 transition-colors">{cat.name}</h3>
-              <p className="text-[10px] text-gray-500 mt-1">{cat.count} محصول</p>
+              <h3 className="text-xs font-medium text-gray-700 group-hover:text-indigo-600 transition-colors">{cat.name}</h3>
+              <p className="text-[10px] text-gray-400 mt-1">{cat.count} محصول</p>
             </button>
           ))}
         </div>
       </section>
 
       {/* Flash Sale Carousel */}
-      <section className="relative py-16 overflow-hidden">
-        {/* Background Effects */}
-        <div className="absolute inset-0 bg-gradient-to-r from-red-900/20 via-orange-900/20 to-pink-900/20"></div>
-        <div className="absolute top-0 right-0 w-96 h-96 bg-red-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl"></div>
+      <section className="relative py-16 overflow-hidden bg-gradient-to-br from-red-50 via-orange-50 to-amber-50">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-red-200/30 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-orange-200/30 rounded-full blur-3xl"></div>
         
         <div className="relative max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between mb-8">
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <Zap className="w-6 h-6 text-yellow-400 animate-pulse" />
-                <h2 className="text-3xl font-bold text-white">پیشنهادات شگفت‌انگیز</h2>
+                <Zap className="w-6 h-6 text-orange-500" />
+                <h2 className="text-3xl font-bold text-gray-800">پیشنهادات شگفت‌انگیز</h2>
               </div>
-              <p className="text-gray-400">تخفیف‌های ویژه با زمان محدود</p>
+              <p className="text-gray-500">تخفیف‌های ویژه با زمان محدود</p>
             </div>
-            <div className="flex items-center gap-2 bg-gradient-to-r from-red-500 to-pink-500 text-white px-4 py-2 rounded-xl shadow-lg shadow-red-500/50">
+            <div className="flex items-center gap-2 bg-gradient-to-r from-red-500 to-orange-500 text-white px-4 py-2 rounded-xl shadow-lg">
               <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
               <span className="text-sm font-bold">فعال</span>
             </div>
@@ -109,12 +107,12 @@ export default function HomePage() {
       <section className="max-w-7xl mx-auto px-4 py-16">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h2 className="text-3xl font-bold text-white mb-2">محصولات ویژه</h2>
-            <p className="text-gray-400">منتخب بهترین محصولات</p>
+            <h2 className="text-3xl font-bold text-gray-800 mb-2">محصولات ویژه</h2>
+            <p className="text-gray-500">منتخب بهترین محصولات</p>
           </div>
           <button
             onClick={() => dispatch({ type: 'SET_PAGE', payload: 'products' })}
-            className="text-cyan-400 text-sm font-medium flex items-center gap-1 hover:text-cyan-300 transition-colors"
+            className="text-indigo-600 text-sm font-medium flex items-center gap-1 hover:text-indigo-700 transition-colors"
           >
             مشاهده همه
             <ChevronLeft className="w-4 h-4" />
@@ -129,19 +127,18 @@ export default function HomePage() {
       </section>
 
       {/* Mobile & Tablet Carousel */}
-      <section className="relative py-16 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 via-indigo-900/20 to-purple-900/20"></div>
-        <div className="absolute top-1/2 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+      <section className="relative py-16 overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+        <div className="absolute top-1/2 right-0 w-96 h-96 bg-blue-200/30 rounded-full blur-3xl"></div>
         
         <div className="relative max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h2 className="text-3xl font-bold text-white mb-2">موبایل و تبلت</h2>
-              <p className="text-gray-400">جدیدترین گوشی‌ها و تبلت‌ها</p>
+              <h2 className="text-3xl font-bold text-gray-800 mb-2">موبایل و تبلت</h2>
+              <p className="text-gray-500">جدیدترین گوشی‌ها و تبلت‌ها</p>
             </div>
             <button
               onClick={() => { dispatch({ type: 'SET_CATEGORY', payload: 'mobile' }); dispatch({ type: 'SET_PAGE', payload: 'products' }); }}
-              className="text-cyan-400 text-sm font-medium flex items-center gap-1 hover:text-cyan-300 transition-colors"
+              className="text-indigo-600 text-sm font-medium flex items-center gap-1 hover:text-indigo-700 transition-colors"
             >
               مشاهده همه
               <ChevronLeft className="w-4 h-4" />
@@ -160,12 +157,12 @@ export default function HomePage() {
       <section className="max-w-7xl mx-auto px-4 py-16">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h2 className="text-3xl font-bold text-white mb-2">دنیای گیمینگ</h2>
-            <p className="text-gray-400">کنسول، لوازم جانبی و بازی</p>
+            <h2 className="text-3xl font-bold text-gray-800 mb-2">دنیای گیمینگ</h2>
+            <p className="text-gray-500">کنسول، لوازم جانبی و بازی</p>
           </div>
           <button
             onClick={() => { dispatch({ type: 'SET_CATEGORY', payload: 'gaming' }); dispatch({ type: 'SET_PAGE', payload: 'products' }); }}
-            className="text-cyan-400 text-sm font-medium flex items-center gap-1 hover:text-cyan-300 transition-colors"
+            className="text-indigo-600 text-sm font-medium flex items-center gap-1 hover:text-indigo-700 transition-colors"
           >
             مشاهده همه
             <ChevronLeft className="w-4 h-4" />
@@ -180,19 +177,18 @@ export default function HomePage() {
       </section>
 
       {/* Laptop Carousel */}
-      <section className="relative py-16 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-900/20 via-pink-900/20 to-rose-900/20"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
+      <section className="relative py-16 overflow-hidden bg-gradient-to-br from-purple-50 via-pink-50 to-rose-50">
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-200/30 rounded-full blur-3xl"></div>
         
         <div className="relative max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h2 className="text-3xl font-bold text-white mb-2">لپ‌تاپ و کامپیوتر</h2>
-              <p className="text-gray-400">بهترین لپ‌تاپ‌ها برای هر نیاز</p>
+              <h2 className="text-3xl font-bold text-gray-800 mb-2">لپ‌تاپ و کامپیوتر</h2>
+              <p className="text-gray-500">بهترین لپ‌تاپ‌ها برای هر نیاز</p>
             </div>
             <button
               onClick={() => { dispatch({ type: 'SET_CATEGORY', payload: 'laptop' }); dispatch({ type: 'SET_PAGE', payload: 'products' }); }}
-              className="text-cyan-400 text-sm font-medium flex items-center gap-1 hover:text-cyan-300 transition-colors"
+              className="text-indigo-600 text-sm font-medium flex items-center gap-1 hover:text-indigo-700 transition-colors"
             >
               مشاهده همه
               <ChevronLeft className="w-4 h-4" />
@@ -211,8 +207,8 @@ export default function HomePage() {
       <section className="max-w-7xl mx-auto px-4 py-16">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h2 className="text-3xl font-bold text-white mb-2">همه محصولات</h2>
-            <p className="text-gray-400">کاوش در میان تمام محصولات</p>
+            <h2 className="text-3xl font-bold text-gray-800 mb-2">همه محصولات</h2>
+            <p className="text-gray-500">کاوش در میان تمام محصولات</p>
           </div>
         </div>
         <AdvancedCarousel 
@@ -224,20 +220,18 @@ export default function HomePage() {
 
       {/* CTA Banner */}
       <section className="max-w-7xl mx-auto px-4 pb-16">
-        <div className="relative glass rounded-3xl p-8 md:p-12 overflow-hidden">
-          {/* Background Effects */}
-          <div className="absolute inset-0 bg-gradient-to-br from-violet-600/20 to-indigo-600/20"></div>
-          <div className="absolute top-0 right-0 w-96 h-96 bg-violet-500/20 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl"></div>
+        <div className="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 rounded-3xl p-8 md:p-12 overflow-hidden shadow-2xl">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
           
           <div className="relative z-10">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">فروشگاه خود را بسازید</h2>
-            <p className="text-gray-300 mb-6 max-w-lg">
+            <p className="text-indigo-100 mb-6 max-w-lg">
               با پلتفرم دیجی‌مارکت، کسب‌وکار دیجیتال خود را بدون نیاز به دانش فنی راه‌اندازی کنید.
             </p>
             <button
               onClick={() => dispatch({ type: 'SET_PAGE', payload: 'admin' })}
-              className="px-8 py-3 bg-gradient-to-r from-violet-500 to-indigo-500 text-white rounded-xl font-semibold hover:shadow-2xl hover:shadow-violet-500/50 transition-all transform hover:scale-105"
+              className="px-8 py-3 bg-white text-indigo-600 rounded-xl font-semibold hover:bg-indigo-50 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
             >
               ورود به پنل مدیریت
             </button>
@@ -249,7 +243,7 @@ export default function HomePage() {
 }
 
 function CategoryIcon({ name }: { name: string }) {
-  const iconClass = "w-7 h-7 text-cyan-400";
+  const iconClass = "w-7 h-7 text-indigo-600";
   switch (name) {
     case 'smartphone': return <Smartphone className={iconClass} />;
     case 'laptop': return <Laptop className={iconClass} />;

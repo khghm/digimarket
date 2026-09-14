@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useApp } from '../store';
 import { Product, formatPrice, getDiscountPercent } from '../data/products';
-import { ChevronLeft, ChevronRight, ShoppingCart, Heart, Star, Zap, Sparkles } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ShoppingCart, Heart, Star, Zap } from 'lucide-react';
 
 interface AdvancedCarouselProps {
   products: Product[];
@@ -23,13 +23,11 @@ export default function AdvancedCarousel({
   const { dispatch, state } = useApp();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
-  const [direction, setDirection] = useState<'left' | 'right'>('right');
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     if (autoPlay && !isHovered && products.length > 1) {
       intervalRef.current = setInterval(() => {
-        setDirection('right');
         setCurrentIndex((prev) => (prev + 1) % products.length);
       }, interval);
     }
@@ -39,33 +37,30 @@ export default function AdvancedCarousel({
   }, [autoPlay, isHovered, products.length, interval]);
 
   const goTo = (index: number) => {
-    setDirection(index > currentIndex ? 'right' : 'left');
     setCurrentIndex(index);
   };
 
   const goNext = () => {
-    setDirection('right');
     setCurrentIndex((prev) => (prev + 1) % products.length);
   };
 
   const goPrev = () => {
-    setDirection('left');
     setCurrentIndex((prev) => (prev - 1 + products.length) % products.length);
   };
 
   if (variant === 'hero') {
     return (
       <div 
-        className="relative w-full h-[500px] overflow-hidden rounded-3xl"
+        className="relative w-full min-h-[550px] overflow-hidden"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
         {/* Animated Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-violet-900 via-indigo-900 to-purple-900">
-          <div className="absolute inset-0 opacity-30">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500 rounded-full blur-3xl animate-pulse"></div>
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-            <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-500 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 animate-gradient">
+          <div className="absolute inset-0 opacity-20">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-400 rounded-full blur-3xl animate-float"></div>
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-400 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }}></div>
+            <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-400 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
           </div>
           {/* Grid Pattern */}
           <div className="absolute inset-0 opacity-10" style={{
@@ -75,33 +70,33 @@ export default function AdvancedCarousel({
         </div>
 
         {/* Content */}
-        <div className="relative z-10 h-full flex items-center">
-          <div className="w-full max-w-7xl mx-auto px-8 grid md:grid-cols-2 gap-8 items-center">
+        <div className="relative z-10 min-h-[550px] flex items-center">
+          <div className="w-full max-w-7xl mx-auto px-8 grid md:grid-cols-2 gap-12 items-center py-12">
             {/* Text Content */}
             <div className="text-white space-y-6 animate-fade-in">
               <div className="flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-cyan-400" />
-                <span className="text-sm font-medium text-cyan-400">محصول ویژه</span>
+                <Zap className="w-5 h-5 text-cyan-300" />
+                <span className="text-sm font-medium text-cyan-300">محصول ویژه</span>
               </div>
               <h2 className="text-4xl md:text-5xl font-bold leading-tight">
                 {products[currentIndex]?.name}
               </h2>
-              <p className="text-lg text-gray-300">
+              <p className="text-lg text-indigo-100">
                 {products[currentIndex]?.description}
               </p>
               <div className="flex items-center gap-4">
                 <div>
                   {products[currentIndex]?.originalPrice && (
-                    <span className="text-sm text-gray-400 line-through block">
+                    <span className="text-sm text-indigo-200 line-through block">
                       {formatPrice(products[currentIndex].originalPrice)}
                     </span>
                   )}
-                  <span className="text-3xl font-bold text-cyan-400">
+                  <span className="text-3xl font-bold text-white">
                     {formatPrice(products[currentIndex]?.price || 0)}
                   </span>
                 </div>
                 {products[currentIndex]?.originalPrice && (
-                  <span className="bg-gradient-to-r from-pink-500 to-rose-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                  <span className="bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-bold border border-white/30">
                     {getDiscountPercent(products[currentIndex].price, products[currentIndex].originalPrice)}% تخفیف
                   </span>
                 )}
@@ -109,14 +104,14 @@ export default function AdvancedCarousel({
               <div className="flex items-center gap-4">
                 <button
                   onClick={() => dispatch({ type: 'ADD_TO_CART', payload: { product: products[currentIndex] } })}
-                  className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-xl font-semibold hover:shadow-2xl hover:shadow-cyan-500/50 transition-all transform hover:scale-105 flex items-center gap-2"
+                  className="px-8 py-3 bg-white text-indigo-600 rounded-xl font-semibold hover:bg-indigo-50 transition-all shadow-xl hover:shadow-2xl transform hover:scale-105 flex items-center gap-2"
                 >
                   <ShoppingCart className="w-5 h-5" />
                   افزودن به سبد
                 </button>
                 <button
                   onClick={() => dispatch({ type: 'SET_PRODUCT', payload: products[currentIndex].id })}
-                  className="px-8 py-3 border-2 border-white/30 text-white rounded-xl font-semibold hover:bg-white/10 transition-all"
+                  className="px-8 py-3 border-2 border-white/50 text-white rounded-xl font-semibold hover:bg-white/10 transition-all backdrop-blur-sm"
                 >
                   مشاهده جزئیات
                 </button>
@@ -127,29 +122,26 @@ export default function AdvancedCarousel({
             <div className="relative flex items-center justify-center">
               <div className="relative w-full max-w-md">
                 {/* Glow Effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+                <div className="absolute inset-0 bg-white/20 rounded-full blur-3xl animate-pulse"></div>
                 
                 {/* Product Image */}
                 <div 
                   key={currentIndex}
                   className="relative animate-slide-in-right"
-                  style={{
-                    animation: 'slideInRight 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
-                  }}
                 >
                   <img
                     src={products[currentIndex]?.image}
                     alt={products[currentIndex]?.name}
-                    className="w-full h-auto drop-shadow-2xl transform hover:scale-110 transition-transform duration-500"
+                    className="w-full h-auto drop-shadow-2xl transform hover:scale-105 transition-transform duration-500"
                     style={{
-                      filter: 'drop-shadow(0 20px 40px rgba(0, 200, 255, 0.3))',
+                      filter: 'drop-shadow(0 20px 40px rgba(255, 255, 255, 0.3))',
                     }}
                   />
                 </div>
 
                 {/* Floating Elements */}
-                <div className="absolute top-10 right-10 w-20 h-20 bg-cyan-500/20 rounded-full blur-xl animate-float"></div>
-                <div className="absolute bottom-10 left-10 w-16 h-16 bg-purple-500/20 rounded-full blur-xl animate-float" style={{ animationDelay: '1s' }}></div>
+                <div className="absolute top-10 right-10 w-20 h-20 bg-white/10 rounded-full blur-xl animate-float"></div>
+                <div className="absolute bottom-10 left-10 w-16 h-16 bg-white/10 rounded-full blur-xl animate-float" style={{ animationDelay: '1s' }}></div>
               </div>
             </div>
           </div>
@@ -158,13 +150,13 @@ export default function AdvancedCarousel({
         {/* Navigation Arrows */}
         <button
           onClick={goPrev}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all"
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/20 backdrop-blur-md border border-white/30 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all"
         >
           <ChevronRight className="w-6 h-6" />
         </button>
         <button
           onClick={goNext}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all"
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/20 backdrop-blur-md border border-white/30 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all"
         >
           <ChevronLeft className="w-6 h-6" />
         </button>
@@ -177,8 +169,8 @@ export default function AdvancedCarousel({
               onClick={() => goTo(i)}
               className={`transition-all duration-300 ${
                 i === currentIndex 
-                  ? 'w-12 h-2 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full' 
-                  : 'w-2 h-2 bg-white/30 rounded-full hover:bg-white/50'
+                  ? 'w-12 h-2 bg-white rounded-full' 
+                  : 'w-2 h-2 bg-white/40 rounded-full hover:bg-white/60'
               }`}
             />
           ))}
@@ -194,19 +186,19 @@ export default function AdvancedCarousel({
       {title && (
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-2xl font-bold text-white">{title}</h2>
-            {subtitle && <p className="text-sm text-gray-400 mt-1">{subtitle}</p>}
+            <h2 className="text-2xl font-bold text-gray-800">{title}</h2>
+            {subtitle && <p className="text-sm text-gray-500 mt-1">{subtitle}</p>}
           </div>
           <div className="flex items-center gap-2">
             <button
               onClick={goPrev}
-              className="w-10 h-10 bg-white/5 backdrop-blur-md border border-white/10 rounded-xl flex items-center justify-center text-white hover:bg-white/10 transition-all"
+              className="w-10 h-10 bg-white border border-gray-200 rounded-xl flex items-center justify-center text-gray-600 hover:border-indigo-300 hover:text-indigo-600 transition-all shadow-soft"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
             <button
               onClick={goNext}
-              className="w-10 h-10 bg-white/5 backdrop-blur-md border border-white/10 rounded-xl flex items-center justify-center text-white hover:bg-white/10 transition-all"
+              className="w-10 h-10 bg-white border border-gray-200 rounded-xl flex items-center justify-center text-gray-600 hover:border-indigo-300 hover:text-indigo-600 transition-all shadow-soft"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -240,9 +232,9 @@ export default function AdvancedCarousel({
 
       {/* Progress Bar */}
       {autoPlay && (
-        <div className="mt-4 h-1 bg-white/5 rounded-full overflow-hidden">
+        <div className="mt-4 h-1 bg-gray-100 rounded-full overflow-hidden">
           <div 
-            className="h-full bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full transition-all duration-300"
+            className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all duration-300"
             style={{ width: `${((currentIndex + 1) / products.length) * 100}%` }}
           ></div>
         </div>
@@ -253,35 +245,23 @@ export default function AdvancedCarousel({
 
 function ProductCard3D({ product }: { product: Product }) {
   const { dispatch, state } = useApp();
-  const [isHovered, setIsHovered] = useState(false);
   const discount = getDiscountPercent(product.price, product.originalPrice);
   const isFav = state.favorites.includes(product.id);
 
   return (
     <div
-      className="relative group cursor-pointer"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      className="relative group cursor-pointer card-hover"
       onClick={() => dispatch({ type: 'SET_PRODUCT', payload: product.id })}
     >
       {/* Card */}
-      <div className="relative bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl overflow-hidden border border-white/10 transition-all duration-500 transform hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/20">
-        {/* Glow Effect on Hover */}
-        <div className={`absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500`}></div>
-        
+      <div className="relative bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-soft hover:shadow-hover hover:border-indigo-200">
         {/* Image Container */}
-        <div className="relative h-48 overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900">
-          {/* Background Glow */}
-          <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-purple-500/10"></div>
-          
+        <div className="relative h-48 overflow-hidden bg-gradient-to-br from-gray-50 to-white">
           {/* Product Image */}
           <img
             src={product.image}
             alt={product.name}
             className="w-full h-full object-contain p-4 transform group-hover:scale-110 transition-transform duration-500"
-            style={{
-              filter: isHovered ? 'drop-shadow(0 10px 20px rgba(0, 200, 255, 0.4))' : 'none',
-            }}
           />
 
           {/* Badges */}
@@ -302,37 +282,37 @@ function ProductCard3D({ product }: { product: Product }) {
               e.stopPropagation();
               dispatch({ type: 'TOGGLE_FAVORITE', payload: product.id });
             }}
-            className="absolute bottom-3 left-3 w-10 h-10 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white/20"
+            className="absolute bottom-3 left-3 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
           >
-            <Heart className={`w-5 h-5 ${isFav ? 'fill-pink-500 text-pink-500' : 'text-white'}`} />
+            <Heart className={`w-5 h-5 ${isFav ? 'fill-pink-500 text-pink-500' : 'text-gray-400'}`} />
           </button>
         </div>
 
         {/* Content */}
         <div className="p-4 space-y-3">
           {/* Brand */}
-          <p className="text-xs text-cyan-400 font-medium">{product.brand}</p>
+          <p className="text-xs text-indigo-600 font-medium">{product.brand}</p>
           
           {/* Name */}
-          <h3 className="text-sm font-bold text-white line-clamp-2 min-h-[2.5rem]">
+          <h3 className="text-sm font-bold text-gray-800 line-clamp-2 min-h-[2.5rem]">
             {product.name}
           </h3>
 
           {/* Rating */}
           <div className="flex items-center gap-1">
             <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
-            <span className="text-xs text-gray-400">{product.rating} ({product.reviewCount})</span>
+            <span className="text-xs text-gray-500">{product.rating} ({product.reviewCount})</span>
           </div>
 
           {/* Price */}
           <div className="space-y-1">
             {product.originalPrice && (
-              <span className="text-xs text-gray-500 line-through block">
+              <span className="text-xs text-gray-400 line-through block">
                 {formatPrice(product.originalPrice)}
               </span>
             )}
             <div className="flex items-center justify-between">
-              <span className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+              <span className="text-lg font-bold text-gray-800">
                 {formatPrice(product.price)}
               </span>
               <button
@@ -340,7 +320,7 @@ function ProductCard3D({ product }: { product: Product }) {
                   e.stopPropagation();
                   dispatch({ type: 'ADD_TO_CART', payload: { product } });
                 }}
-                className="w-10 h-10 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl flex items-center justify-center text-white hover:shadow-lg hover:shadow-cyan-500/50 transition-all transform hover:scale-110"
+                className="w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center text-white hover:shadow-lg transition-all transform hover:scale-110"
               >
                 <ShoppingCart className="w-5 h-5" />
               </button>
@@ -348,8 +328,8 @@ function ProductCard3D({ product }: { product: Product }) {
           </div>
         </div>
 
-        {/* Bottom Glow Line */}
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        {/* Bottom Gradient Line */}
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
       </div>
     </div>
   );
