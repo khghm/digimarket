@@ -51,97 +51,139 @@ export default function AdvancedCarousel({
   if (variant === 'hero') {
     return (
       <div 
-        className="relative w-full min-h-[550px] overflow-hidden"
+        className="relative w-full min-h-[600px] overflow-hidden"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {/* Animated Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 animate-gradient">
-          <div className="absolute inset-0 opacity-20">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-400 rounded-full blur-3xl animate-float"></div>
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-400 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }}></div>
-            <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-pink-400 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
+        {/* Animated Background with Particles */}
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900">
+          {/* Animated Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/40 via-purple-600/40 to-pink-600/40 animate-gradient"></div>
+          
+          {/* Floating Particles */}
+          <div className="absolute inset-0 overflow-hidden">
+            {[...Array(20)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute w-2 h-2 bg-white/20 rounded-full particle-animate"
+                style={{
+                  top: `${Math.random() * 100}%`,
+                  left: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 5}s`,
+                  animationDuration: `${5 + Math.random() * 10}s`
+                }}
+              />
+            ))}
           </div>
+
+          {/* Glowing Orbs */}
+          <div className="absolute top-20 right-20 w-96 h-96 bg-cyan-500/30 rounded-full blur-3xl hero-animate-glow"></div>
+          <div className="absolute bottom-20 left-20 w-96 h-96 bg-purple-500/30 rounded-full blur-3xl hero-animate-glow" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pink-500/20 rounded-full blur-3xl hero-animate-glow" style={{ animationDelay: '4s' }}></div>
+
           {/* Grid Pattern */}
-          <div className="absolute inset-0 opacity-10" style={{
-            backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
-            backgroundSize: '50px 50px'
+          <div className="absolute inset-0 opacity-5" style={{
+            backgroundImage: 'linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)',
+            backgroundSize: '60px 60px'
           }}></div>
         </div>
 
         {/* Content */}
-        <div className="relative z-10 min-h-[550px] flex items-center">
-          <div className="w-full max-w-7xl mx-auto px-8 grid md:grid-cols-2 gap-12 items-center py-12">
+        <div className="relative z-10 min-h-[600px] flex items-center">
+          <div className="w-full max-w-7xl mx-auto px-8 grid md:grid-cols-2 gap-16 items-center py-16">
             {/* Text Content */}
-            <div className="text-white space-y-6 animate-fade-in">
-              <div className="flex items-center gap-2">
-                <Zap className="w-5 h-5 text-cyan-300" />
+            <div className="text-white space-y-8 animate-fade-in">
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-2">
+                <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
                 <span className="text-sm font-medium text-cyan-300">محصول ویژه</span>
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold leading-tight">
-                {products[currentIndex]?.name}
+
+              {/* Title */}
+              <h2 className="text-5xl md:text-6xl font-bold leading-tight">
+                <span className="block">{products[currentIndex]?.name}</span>
               </h2>
-              <p className="text-lg text-indigo-100">
+
+              {/* Description */}
+              <p className="text-xl text-indigo-100 leading-relaxed max-w-lg">
                 {products[currentIndex]?.description}
               </p>
-              <div className="flex items-center gap-4">
+
+              {/* Price Section */}
+              <div className="flex items-center gap-6">
                 <div>
                   {products[currentIndex]?.originalPrice && (
-                    <span className="text-sm text-indigo-200 line-through block">
+                    <span className="text-lg text-indigo-300 line-through block mb-1">
                       {formatPrice(products[currentIndex].originalPrice)}
                     </span>
                   )}
-                  <span className="text-3xl font-bold text-white">
-                    {formatPrice(products[currentIndex]?.price || 0)}
-                  </span>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-4xl font-bold text-white">
+                      {formatPrice(products[currentIndex]?.price || 0)}
+                    </span>
+                  </div>
                 </div>
                 {products[currentIndex]?.originalPrice && (
-                  <span className="bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-bold border border-white/30">
-                    {getDiscountPercent(products[currentIndex].price, products[currentIndex].originalPrice)}% تخفیف
-                  </span>
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-rose-500 blur-lg opacity-50"></div>
+                    <span className="relative bg-gradient-to-r from-pink-500 to-rose-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-xl">
+                      {getDiscountPercent(products[currentIndex].price, products[currentIndex].originalPrice)}% تخفیف
+                    </span>
+                  </div>
                 )}
               </div>
-              <div className="flex items-center gap-4">
+
+              {/* Action Buttons */}
+              <div className="flex items-center gap-4 pt-4">
                 <button
                   onClick={() => dispatch({ type: 'ADD_TO_CART', payload: { product: products[currentIndex] } })}
-                  className="px-8 py-3 bg-white text-indigo-600 rounded-xl font-semibold hover:bg-indigo-50 transition-all shadow-xl hover:shadow-2xl transform hover:scale-105 flex items-center gap-2"
+                  className="group relative px-8 py-4 bg-white text-indigo-600 rounded-2xl font-bold hover:shadow-2xl transition-all transform hover:scale-105 flex items-center gap-3 overflow-hidden"
                 >
-                  <ShoppingCart className="w-5 h-5" />
-                  افزودن به سبد
+                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-10 transition-opacity"></div>
+                  <ShoppingCart className="w-5 h-5 relative z-10" />
+                  <span className="relative z-10">افزودن به سبد</span>
                 </button>
                 <button
                   onClick={() => dispatch({ type: 'SET_PRODUCT', payload: products[currentIndex].id })}
-                  className="px-8 py-3 border-2 border-white/50 text-white rounded-xl font-semibold hover:bg-white/10 transition-all backdrop-blur-sm"
+                  className="px-8 py-4 border-2 border-white/30 text-white rounded-2xl font-bold hover:bg-white/10 transition-all backdrop-blur-sm hover:border-white/50"
                 >
                   مشاهده جزئیات
                 </button>
               </div>
             </div>
 
-            {/* Product Image with 3D Effect */}
+            {/* Product Image with Advanced Effects */}
             <div className="relative flex items-center justify-center">
-              <div className="relative w-full max-w-md">
-                {/* Glow Effect */}
-                <div className="absolute inset-0 bg-white/20 rounded-full blur-3xl animate-pulse"></div>
+              <div className="relative w-full max-w-lg">
+                {/* Multiple Glow Layers */}
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full blur-3xl opacity-30 hero-animate-glow"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-rose-500 rounded-full blur-3xl opacity-20 hero-animate-glow" style={{ animationDelay: '1s' }}></div>
                 
-                {/* Product Image */}
+                {/* Product Image Container */}
                 <div 
                   key={currentIndex}
-                  className="relative animate-slide-in-right"
+                  className="relative hero-animate-float"
                 >
+                  {/* Shine Effect */}
+                  <div className="absolute inset-0 overflow-hidden rounded-3xl">
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent hero-animate-shine"></div>
+                  </div>
+
+                  {/* Product Image */}
                   <img
                     src={products[currentIndex]?.image}
                     alt={products[currentIndex]?.name}
-                    className="w-full h-auto drop-shadow-2xl transform hover:scale-105 transition-transform duration-500"
+                    className="w-full h-auto relative z-10 transform hover:scale-110 transition-transform duration-700"
                     style={{
-                      filter: 'drop-shadow(0 20px 40px rgba(255, 255, 255, 0.3))',
+                      filter: 'drop-shadow(0 30px 60px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 40px rgba(255, 255, 255, 0.2))',
                     }}
                   />
                 </div>
 
-                {/* Floating Elements */}
-                <div className="absolute top-10 right-10 w-20 h-20 bg-white/10 rounded-full blur-xl animate-float"></div>
-                <div className="absolute bottom-10 left-10 w-16 h-16 bg-white/10 rounded-full blur-xl animate-float" style={{ animationDelay: '1s' }}></div>
+                {/* Floating Decorative Elements */}
+                <div className="absolute -top-8 -right-8 w-24 h-24 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-2xl blur-2xl opacity-40 hero-animate-float" style={{ animationDelay: '0.5s' }}></div>
+                <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-gradient-to-br from-purple-400 to-pink-500 rounded-2xl blur-2xl opacity-40 hero-animate-float" style={{ animationDelay: '1.5s' }}></div>
+                <div className="absolute top-1/2 -right-12 w-20 h-20 bg-gradient-to-br from-pink-400 to-rose-500 rounded-full blur-xl opacity-30 hero-animate-float" style={{ animationDelay: '2.5s' }}></div>
               </div>
             </div>
           </div>
@@ -150,31 +192,43 @@ export default function AdvancedCarousel({
         {/* Navigation Arrows */}
         <button
           onClick={goPrev}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/20 backdrop-blur-md border border-white/30 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all"
+          className="absolute right-6 top-1/2 -translate-y-1/2 z-20 w-14 h-14 bg-white/10 backdrop-blur-xl border-2 border-white/20 rounded-2xl flex items-center justify-center text-white hover:bg-white/20 hover:border-white/40 hover:scale-110 transition-all shadow-2xl"
         >
-          <ChevronRight className="w-6 h-6" />
+          <ChevronRight className="w-7 h-7" />
         </button>
         <button
           onClick={goNext}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/20 backdrop-blur-md border border-white/30 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all"
+          className="absolute left-6 top-1/2 -translate-y-1/2 z-20 w-14 h-14 bg-white/10 backdrop-blur-xl border-2 border-white/20 rounded-2xl flex items-center justify-center text-white hover:bg-white/20 hover:border-white/40 hover:scale-110 transition-all shadow-2xl"
         >
-          <ChevronLeft className="w-6 h-6" />
+          <ChevronLeft className="w-7 h-7" />
         </button>
 
-        {/* Indicators */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+        {/* Progress Indicators */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-3">
           {products.map((_, i) => (
             <button
               key={i}
               onClick={() => goTo(i)}
-              className={`transition-all duration-300 ${
+              className={`transition-all duration-500 relative ${
                 i === currentIndex 
-                  ? 'w-12 h-2 bg-white rounded-full' 
-                  : 'w-2 h-2 bg-white/40 rounded-full hover:bg-white/60'
+                  ? 'w-16 h-2' 
+                  : 'w-2 h-2 hover:w-4'
               }`}
-            />
+            >
+              <div className={`absolute inset-0 rounded-full ${
+                i === currentIndex 
+                  ? 'bg-gradient-to-r from-cyan-400 to-blue-500 shadow-lg shadow-cyan-500/50' 
+                  : 'bg-white/40 hover:bg-white/60'
+              }`}></div>
+              {i === currentIndex && (
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 blur-md opacity-50"></div>
+              )}
+            </button>
           ))}
         </div>
+
+        {/* Bottom Gradient Fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
       </div>
     );
   }
