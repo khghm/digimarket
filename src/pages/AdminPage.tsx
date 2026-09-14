@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useApp } from '../store';
 import { products as allProducts, categories, formatPrice, Product } from '../data/products';
-import { BarChart3, Package, Users, ShoppingCart, DollarSign, TrendingUp, AlertTriangle, Settings, Bell, FileText, MessageSquare, Shield, Layers, Plus, Search, Eye, Edit, Trash2, Check, X, ChevronDown, ArrowUpRight, ArrowDownRight, Filter, RefreshCw, Send, Save, ChevronLeft, MapPin, CreditCard, Clock, Tag, Zap, Globe, Database, Lock, Activity } from 'lucide-react';
+import { BarChart3, Package, Users, ShoppingCart, DollarSign, TrendingUp, AlertTriangle, Settings, Bell, FileText, MessageSquare, Shield, Layers, Plus, Search, Eye, Edit, Trash2, Check, X, ChevronDown, ArrowUpRight, ArrowDownRight, Filter, RefreshCw, Send, Save, ChevronLeft, MapPin, CreditCard, Clock, Tag, Zap, Globe, Database, Lock, Activity, Upload, Image as ImageIcon } from 'lucide-react';
 
 export default function AdminPage() {
   const { state, dispatch } = useApp();
@@ -437,6 +437,57 @@ function ProductModal({ product, onClose }: { product: Product | null; onClose: 
     category: product?.category || '',
     description: product?.description || '',
   });
+  const [imagePreview, setImagePreview] = useState<string | null>(product?.image || null);
+  const [isDragging, setIsDragging] = useState(false);
+
+  const handleImageUpload = (file: File) => {
+    if (!file.type.startsWith('image/')) {
+      alert('لطفاً فقط فایل تصویری انتخاب کنید');
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      alert('حجم فایل نباید بیشتر از ۵ مگابایت باشد');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setImagePreview(e.target?.result as string);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      handleImageUpload(file);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file) {
+      handleImageUpload(file);
+    }
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleSave = () => {
+    // اینجا می‌توانید منطق ذخیره محصول را پیاده‌سازی کنید
+    // برای مثال: dispatch({ type: 'ADD_PRODUCT', payload: { ...formData, image: imagePreview } })
+    console.log('Saving product:', { ...formData, image: imagePreview });
+    onClose();
+  };
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
@@ -477,17 +528,56 @@ function ProductModal({ product, onClose }: { product: Product | null; onClose: 
             <textarea value={formData.description} onChange={(e) => setFormData({...formData, description: e.target.value})} className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm text-gray-700 focus:outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 resize-none h-24" />
           </div>
           <div className="md:col-span-2">
-            <label className="text-sm text-gray-600 mb-1 block">تصویر محصول</label>
-            <div className="border-2 border-dashed border-gray-200 rounded-xl p-8 text-center hover:border-indigo-300 transition-colors cursor-pointer">
-              <Package className="w-10 h-10 text-gray-300 mx-auto mb-2" />
-              <p className="text-sm text-gray-500">فایل را بکشید و رها کنید یا کلیک کنید</p>
-              <p className="text-xs text-gray-400 mt-1">PNG, JPG تا ۵ مگابایت</p>
+            <label className="text-sm text-gray-600 mb-2 block">تصویر محصول</label>
+            
+            {/* Image Preview */}
+            {imagePreview && (
+              <div className="mb-4 relative group">
+                <img 
+                  src={imagePreview} 
+                  alt="پیش‌نمایش" 
+                  className="w-full h-64 object-contain bg-gray-50 rounded-xl border border-gray-200"
+                />
+                <button
+                  onClick={() => setImagePreview(null)}
+                  className="absolute top-2 left-2 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            )}
+
+            {/* Upload Area */}
+            <div
+              onDrop={handleDrop}
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              className={`border-2 border-dashed rounded-xl p-8 text-center transition-all cursor-pointer ${
+                isDragging 
+                  ? 'border-indigo-500 bg-indigo-50' 
+                  : 'border-gray-200 hover:border-indigo-300 hover:bg-gray-50'
+              }`}
+            >
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileInput}
+                className="hidden"
+                id="image-upload"
+              />
+              <label htmlFor="image-upload" className="cursor-pointer">
+                <Package className="w-10 h-10 text-gray-300 mx-auto mb-2" />
+                <p className="text-sm text-gray-600 font-medium">
+                  {imagePreview ? 'تغییر تصویر' : 'فایل را بکشید و رها کنید یا کلیک کنید'}
+                </p>
+                <p className="text-xs text-gray-400 mt-1">PNG, JPG تا ۵ مگابایت</p>
+              </label>
             </div>
           </div>
         </div>
         <div className="flex items-center justify-end gap-3 mt-6 pt-6 border-t border-gray-100">
           <button onClick={onClose} className="px-6 py-2.5 border border-gray-200 rounded-xl text-sm text-gray-600 hover:bg-gray-50">انصراف</button>
-          <button onClick={onClose} className="px-6 py-2.5 bg-gradient-to-l from-indigo-600 to-purple-600 text-white rounded-xl text-sm font-medium hover:shadow-lg flex items-center gap-2">
+          <button onClick={handleSave} className="px-6 py-2.5 bg-gradient-to-l from-indigo-600 to-purple-600 text-white rounded-xl text-sm font-medium hover:shadow-lg flex items-center gap-2">
             <Save className="w-4 h-4" />
             {product ? 'بروزرسانی' : 'ذخیره محصول'}
           </button>
