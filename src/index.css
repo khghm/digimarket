@@ -1,0 +1,297 @@
+@import "tailwindcss";
+
+@theme {
+  --font-vazir: 'Vazirmatn', sans-serif;
+  
+  /* Brand Colors - Professional Digital Store */
+  --color-brand-primary: #0f172a;      /* Deep Navy - Trust & Professional */
+  --color-brand-secondary: #6366f1;    /* Electric Indigo - Innovation */
+  --color-brand-accent: #f97316;       /* Vibrant Orange - Energy & CTA */
+  --color-brand-success: #10b981;      /* Emerald - Success */
+  --color-brand-warning: #f59e0b;      /* Amber - Warning */
+  --color-brand-danger: #ef4444;       /* Ruby - Danger */
+  
+  /* Neutral Palette */
+  --color-neutral-50: #f8fafc;
+  --color-neutral-100: #f1f5f9;
+  --color-neutral-200: #e2e8f0;
+  --color-neutral-300: #cbd5e1;
+  --color-neutral-400: #94a3b8;
+  --color-neutral-500: #64748b;
+  --color-neutral-600: #475569;
+  --color-neutral-700: #334155;
+  --color-neutral-800: #1e293b;
+  --color-neutral-900: #0f172a;
+}
+
+* {
+  font-family: 'Vazirmatn', sans-serif;
+}
+
+html {
+  direction: rtl;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #f8fafc;
+  color: #0f172a;
+  min-height: 100vh;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #6366f1, #8b5cf6);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #4f46e5, #7c3aed);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+@keyframes slideInRight {
+  from { 
+    opacity: 0; 
+    transform: translateX(60px) scale(0.95); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(0) scale(1); 
+  }
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+/* Hide scrollbar for carousel */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #0f172a 0%, #6366f1 50%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Brand Gradients */
+.gradient-primary {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+.gradient-secondary {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+}
+
+.gradient-accent {
+  background: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+}
+
+.gradient-hero {
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+}
+
+.gradient-card {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+}
+
+/* Glass morphism - light version */
+.glass-light {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.glass-dark {
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Soft shadows */
+.shadow-soft {
+  box-shadow: 0 4px 20px -2px rgba(99, 102, 241, 0.1),
+              0 2px 8px -2px rgba(0, 0, 0, 0.04);
+}
+
+.shadow-hover {
+  box-shadow: 0 10px 40px -10px rgba(99, 102, 241, 0.25),
+              0 4px 12px -4px rgba(0, 0, 0, 0.08);
+}
+
+/* Grid pattern */
+.grid-pattern {
+  background-image: 
+    linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Dot pattern */
+.dot-pattern {
+  background-image: radial-gradient(circle, rgba(99, 102, 241, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Professional Border - Brand Aligned */
+.site-border {
+  position: relative;
+  padding: 16px;
+  background: linear-gradient(135deg, 
+    rgba(15, 23, 42, 0.05) 0%, 
+    rgba(99, 102, 241, 0.08) 50%, 
+    rgba(249, 115, 22, 0.05) 100%);
+  border-radius: 28px;
+  min-height: 100vh;
+}
+
+.site-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 3px;
+  background: linear-gradient(135deg, 
+    #0f172a 0%, 
+    #6366f1 40%, 
+    #8b5cf6 60%, 
+    #f97316 100%);
+  border-radius: 28px;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  box-shadow: 0 0 40px rgba(99, 102, 241, 0.15);
+}
+
+.site-border-inner {
+  background: #ffffff;
+  border-radius: 20px;
+  min-height: calc(100vh - 32px);
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+}
+
+/* Hero Carousel Enhancements */
+@keyframes hero-float {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% { 
+    transform: translateY(-20px) rotate(2deg);
+  }
+}
+
+@keyframes hero-glow {
+  0%, 100% { 
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes hero-shine {
+  0% { 
+    transform: translateX(-100%) skewX(-15deg);
+  }
+  100% { 
+    transform: translateX(200%) skewX(-15deg);
+  }
+}
+
+@keyframes particle-float {
+  0%, 100% { 
+    transform: translate(0, 0) scale(1);
+    opacity: 0.6;
+  }
+  50% { 
+    transform: translate(20px, -30px) scale(1.2);
+    opacity: 1;
+  }
+}
+
+.hero-animate-float {
+  animation: hero-float 6s ease-in-out infinite;
+}
+
+.hero-animate-glow {
+  animation: hero-glow 4s ease-in-out infinite;
+}
+
+.hero-animate-shine {
+  animation: hero-shine 3s ease-in-out infinite;
+}
+
+.particle-animate {
+  animation: particle-float 8s ease-in-out infinite;
+}
+
+/* Smooth transitions */
+* {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+/* Card hover effect */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+}
