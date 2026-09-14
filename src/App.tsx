@@ -48,23 +48,26 @@ function AppContent() {
 
   if (state.currentPage === 'admin') {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gradient-to-bl from-slate-50 via-blue-50/30 to-indigo-50/20">
         {/* Admin Top Bar */}
-        <header className="bg-white border-b border-gray-100 px-6 py-3 flex items-center justify-between sticky top-0 z-50">
+        <header className="bg-white/80 backdrop-blur-xl border-b border-gray-200/60 px-6 py-3 flex items-center justify-between sticky top-0 z-50 shadow-sm">
           <div className="flex items-center gap-4">
-            <button onClick={() => navigate('home')} className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">DM</span>
+            <button onClick={() => navigate('home')} className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-violet-200">
+                <span className="text-white font-bold">DM</span>
               </div>
-              <span className="font-bold text-gray-800 hidden sm:block">دیجی‌مارکت</span>
+              <div className="hidden sm:block text-right">
+                <span className="font-bold bg-gradient-to-l from-violet-700 to-indigo-600 bg-clip-text text-transparent">دیجی‌مارکت</span>
+                <p className="text-[10px] text-gray-400 -mt-0.5">پنل مدیریت</p>
+              </div>
             </button>
           </div>
           <div className="flex items-center gap-3">
-            <button onClick={() => navigate('home')} className="text-sm text-gray-600 hover:text-blue-600 flex items-center gap-1">
+            <button onClick={() => navigate('home')} className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm text-gray-600 hover:bg-gray-50 hover:border-violet-200 shadow-sm">
               <Home className="w-4 h-4" />
-              <span className="hidden sm:inline">بازگشت به فروشگاه</span>
+              <span className="hidden sm:inline">فروشگاه</span>
             </button>
-            <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-sm font-bold">
+            <div className="w-9 h-9 bg-gradient-to-br from-violet-500 to-indigo-600 rounded-xl flex items-center justify-center text-white text-sm font-bold shadow-lg shadow-violet-200">
               A
             </div>
           </div>

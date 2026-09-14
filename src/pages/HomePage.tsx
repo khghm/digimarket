@@ -1,12 +1,10 @@
+import { useState, useEffect, useRef } from 'react';
 import { useApp } from '../store';
 import { products, categories, formatPrice, getDiscountPercent } from '../data/products';
-import { ShoppingCart, Heart, ChevronLeft, Star, Truck, Shield, Headphones } from 'lucide-react';
+import { ShoppingCart, Heart, ChevronLeft, ChevronRight, Star, Truck, Shield, Headphones, Award } from 'lucide-react';
 
 export default function HomePage() {
   const { dispatch } = useApp();
-
-  const featuredProducts = products.filter(p => p.badge);
-  const discountedProducts = products.filter(p => p.originalPrice);
 
   return (
     <div className="animate-fade-in">
@@ -43,11 +41,7 @@ export default function HomePage() {
               </div>
             </div>
             <div className="hidden md:block">
-              <img
-                src="https://image.qwenlm.ai/generated-images/ba731b34-b2e7-4296-8ea1-78508b76ff59/_result.png"
-                alt="محصول ویژه"
-                className="w-full max-w-md mx-auto drop-shadow-2xl transform hover:scale-105 transition-transform duration-500"
-              />
+              <HeroCarousel />
             </div>
           </div>
         </div>
@@ -61,7 +55,7 @@ export default function HomePage() {
               { icon: Truck, title: 'ارسال سریع', desc: 'تحویل اکسپرس به سراسر کشور' },
               { icon: Shield, title: 'ضمانت اصالت', desc: 'تمامی محصولات اورجینال و رسمی' },
               { icon: Headphones, title: 'پشتیبانی ۲۴/۷', desc: 'تیم پشتیبانی در خدمت شما' },
-              { icon: Star, title: 'بهترین قیمت', desc: 'تضمین بهترین قیمت بازار' },
+              { icon: Award, title: 'بهترین قیمت', desc: 'تضمین بهترین قیمت بازار' },
             ].map((item, i) => (
               <div key={i} className="flex items-center gap-3">
                 <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -109,30 +103,24 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Flash Sale */}
-      {discountedProducts.length > 0 && (
-        <section className="bg-gradient-to-l from-red-50 to-orange-50 py-12">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="flex items-center justify-between mb-8">
-              <div>
-                <h2 className="text-2xl font-bold text-gray-800">پیشنهادات شگفت‌انگیز</h2>
-                <p className="text-gray-500 text-sm mt-1">تخفیف‌های ویژه با زمان محدود</p>
-              </div>
-              <div className="flex items-center gap-2 bg-red-600 text-white px-4 py-2 rounded-xl">
-                <div className="w-2 h-2 bg-white rounded-full animate-pulse-soft"></div>
-                <span className="text-sm font-medium">فعال</span>
-              </div>
+      {/* Flash Sale Carousel */}
+      <section className="bg-gradient-to-l from-red-50 to-orange-50 py-12">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-800">پیشنهادات شگفت‌انگیز</h2>
+              <p className="text-gray-500 text-sm mt-1">تخفیف‌های ویژه با زمان محدود</p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {discountedProducts.slice(0, 4).map(product => (
-                <ProductCard key={product.id} product={product} />
-              ))}
+            <div className="flex items-center gap-2 bg-red-600 text-white px-4 py-2 rounded-xl">
+              <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+              <span className="text-sm font-medium">فعال</span>
             </div>
           </div>
-        </section>
-      )}
+          <ProductCarousel products={products.filter(p => p.originalPrice)} />
+        </div>
+      </section>
 
-      {/* Featured Products */}
+      {/* Featured Products Carousel */}
       <section className="max-w-7xl mx-auto px-4 py-12">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-2xl font-bold text-gray-800">محصولات ویژه</h2>
@@ -144,22 +132,74 @@ export default function HomePage() {
             <ChevronLeft className="w-4 h-4" />
           </button>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {featuredProducts.slice(0, 8).map(product => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+        <ProductCarousel products={products.filter(p => p.badge)} />
+      </section>
+
+      {/* Mobile & Tablet Carousel */}
+      <section className="bg-white py-12">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-800">موبایل و تبلت</h2>
+              <p className="text-gray-500 text-sm mt-1">جدیدترین گوشی‌ها و تبلت‌ها</p>
+            </div>
+            <button
+              onClick={() => { dispatch({ type: 'SET_CATEGORY', payload: 'mobile' }); dispatch({ type: 'SET_PAGE', payload: 'products' }); }}
+              className="text-blue-600 text-sm font-medium flex items-center gap-1 hover:text-blue-700"
+            >
+              مشاهده همه
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+          </div>
+          <ProductCarousel products={products.filter(p => p.category === 'mobile')} />
         </div>
       </section>
 
-      {/* All Products */}
+      {/* Gaming Carousel */}
+      <section className="bg-gradient-to-l from-purple-50 to-indigo-50 py-12">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-800">دنیای گیمینگ</h2>
+              <p className="text-gray-500 text-sm mt-1">کنسول، لوازم جانبی و بازی</p>
+            </div>
+            <button
+              onClick={() => { dispatch({ type: 'SET_CATEGORY', payload: 'gaming' }); dispatch({ type: 'SET_PAGE', payload: 'products' }); }}
+              className="text-blue-600 text-sm font-medium flex items-center gap-1 hover:text-blue-700"
+            >
+              مشاهده همه
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+          </div>
+          <ProductCarousel products={products.filter(p => p.category === 'gaming')} />
+        </div>
+      </section>
+
+      {/* Laptop Carousel */}
       <section className="max-w-7xl mx-auto px-4 py-12">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl font-bold text-gray-800">جدیدترین محصولات</h2>
+          <div>
+            <h2 className="text-2xl font-bold text-gray-800">لپ‌تاپ و کامپیوتر</h2>
+            <p className="text-gray-500 text-sm mt-1">بهترین لپ‌تاپ‌ها برای هر نیاز</p>
+          </div>
+          <button
+            onClick={() => { dispatch({ type: 'SET_CATEGORY', payload: 'laptop' }); dispatch({ type: 'SET_PAGE', payload: 'products' }); }}
+            className="text-blue-600 text-sm font-medium flex items-center gap-1 hover:text-blue-700"
+          >
+            مشاهده همه
+            <ChevronLeft className="w-4 h-4" />
+          </button>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-          {products.map(product => (
-            <ProductCard key={product.id} product={product} compact />
-          ))}
+        <ProductCarousel products={products.filter(p => p.category === 'laptop')} />
+      </section>
+
+      {/* All Products Carousel */}
+      <section className="bg-white py-12">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-2xl font-bold text-gray-800">همه محصولات</h2>
+          </div>
+          <ProductCarousel products={products} showAll />
         </div>
       </section>
 
@@ -172,8 +212,11 @@ export default function HomePage() {
             <p className="text-indigo-100 mb-6 max-w-lg">
               با پلتفرم دیجی‌مارکت، کسب‌وکار دیجیتال خود را بدون نیاز به دانش فنی راه‌اندازی کنید.
             </p>
-            <button className="bg-white text-indigo-700 px-8 py-3 rounded-xl font-semibold hover:bg-indigo-50 transition-all">
-              شروع رایگان
+            <button
+              onClick={() => dispatch({ type: 'SET_PAGE', payload: 'admin' })}
+              className="bg-white text-indigo-700 px-8 py-3 rounded-xl font-semibold hover:bg-indigo-50 transition-all"
+            >
+              ورود به پنل مدیریت
             </button>
           </div>
         </div>
@@ -182,13 +225,121 @@ export default function HomePage() {
   );
 }
 
-function ProductCard({ product, compact }: { product: typeof products[0]; compact?: boolean }) {
+function HeroCarousel() {
+  const [current, setCurrent] = useState(0);
+  const heroProducts = products.slice(0, 4);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % heroProducts.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [heroProducts.length]);
+
+  return (
+    <div className="relative">
+      <div className="overflow-hidden rounded-3xl">
+        <div
+          className="flex transition-transform duration-700 ease-in-out"
+          style={{ transform: `translateX(${current * 100}%)` }}
+        >
+          {heroProducts.map((product, i) => (
+            <div key={product.id} className="min-w-full flex justify-center">
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-full max-w-sm object-contain drop-shadow-2xl"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="flex justify-center gap-2 mt-4">
+        {heroProducts.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrent(i)}
+            className={`w-2 h-2 rounded-full transition-all ${i === current ? 'bg-white w-6' : 'bg-white/40'}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ProductCarousel({ products: carouselProducts, showAll }: { products: typeof products; showAll?: boolean }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScroll = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+    }
+  };
+
+  useEffect(() => {
+    checkScroll();
+    const el = scrollRef.current;
+    if (el) {
+      el.addEventListener('scroll', checkScroll);
+      return () => el.removeEventListener('scroll', checkScroll);
+    }
+  }, []);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const scrollAmount = 300;
+      scrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth',
+      });
+    }
+  };
+
+  return (
+    <div className="relative group">
+      {/* Navigation Buttons */}
+      {canScrollRight && (
+        <button
+          onClick={() => scroll('right')}
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white shadow-lg rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-blue-50"
+        >
+          <ChevronRight className="w-5 h-5 text-gray-700" />
+        </button>
+      )}
+      {canScrollLeft && (
+        <button
+          onClick={() => scroll('left')}
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 bg-white shadow-lg rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-blue-50"
+        >
+          <ChevronLeft className="w-5 h-5 text-gray-700" />
+        </button>
+      )}
+
+      {/* Scrollable Container */}
+      <div
+        ref={scrollRef}
+        className="flex gap-4 overflow-x-auto scrollbar-hide pb-4 snap-x snap-mandatory"
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+      >
+        {carouselProducts.map(product => (
+          <ProductCard key={product.id} product={product} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ProductCard({ product }: { product: typeof products[0] }) {
   const { dispatch, state } = useApp();
   const discount = getDiscountPercent(product.price, product.originalPrice);
   const isFav = state.favorites.includes(product.id);
 
   return (
-    <div className="group bg-white rounded-2xl border border-gray-100 hover:border-blue-200 hover:shadow-xl transition-all duration-300 overflow-hidden">
+    <div className="min-w-[220px] max-w-[220px] snap-start bg-white rounded-2xl border border-gray-100 hover:border-blue-200 hover:shadow-xl transition-all duration-300 overflow-hidden flex-shrink-0">
       <div className="relative p-4 cursor-pointer" onClick={() => dispatch({ type: 'SET_PRODUCT', payload: product.id })}>
         {product.badge && (
           <span className="absolute top-2 right-2 bg-red-500 text-white text-[10px] px-2 py-1 rounded-lg font-medium z-10">
@@ -197,46 +348,47 @@ function ProductCard({ product, compact }: { product: typeof products[0]; compac
         )}
         {discount > 0 && (
           <span className="absolute top-2 left-2 bg-green-500 text-white text-[10px] px-2 py-1 rounded-lg font-medium z-10">
-            {discount}% تخفیف
+            {discount}%
           </span>
         )}
         <img
           src={product.image}
           alt={product.name}
-          className={`w-full object-contain group-hover:scale-105 transition-transform duration-300 ${compact ? 'h-32' : 'h-44'}`}
+          className="w-full h-36 object-contain hover:scale-105 transition-transform duration-300"
         />
         <button
           onClick={(e) => { e.stopPropagation(); dispatch({ type: 'TOGGLE_FAVORITE', payload: product.id }); }}
-          className="absolute bottom-2 left-2 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+          className="absolute bottom-2 left-2 w-8 h-8 bg-white rounded-full shadow-md flex items-center justify-center"
         >
           <Heart className={`w-4 h-4 ${isFav ? 'fill-red-500 text-red-500' : 'text-gray-400'}`} />
         </button>
       </div>
       <div className="p-4 pt-0">
+        <p className="text-[10px] text-gray-400 mb-0.5">{product.brand}</p>
         <h3
-          className="font-medium text-gray-800 text-sm mb-1 line-clamp-2 cursor-pointer hover:text-blue-600 transition-colors"
+          className="font-medium text-gray-800 text-xs mb-1 line-clamp-2 cursor-pointer hover:text-blue-600 transition-colors h-8"
           onClick={() => dispatch({ type: 'SET_PRODUCT', payload: product.id })}
         >
           {product.name}
         </h3>
         <div className="flex items-center gap-1 mb-2">
-          <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-          <span className="text-xs text-gray-500">{product.rating} ({product.reviewCount})</span>
+          <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+          <span className="text-[10px] text-gray-500">{product.rating}</span>
         </div>
         <div className="flex items-center justify-between">
           <div>
             {product.originalPrice && (
-              <span className="text-xs text-gray-400 line-through block">
+              <span className="text-[10px] text-gray-400 line-through block">
                 {formatPrice(product.originalPrice)}
               </span>
             )}
-            <span className="font-bold text-blue-700 text-sm">{formatPrice(product.price)}</span>
+            <span className="font-bold text-blue-700 text-xs">{formatPrice(product.price)}</span>
           </div>
           <button
             onClick={() => dispatch({ type: 'ADD_TO_CART', payload: { product } })}
-            className="w-9 h-9 bg-blue-600 text-white rounded-xl flex items-center justify-center hover:bg-blue-700 transition-colors"
+            className="w-8 h-8 bg-blue-600 text-white rounded-lg flex items-center justify-center hover:bg-blue-700 transition-colors"
           >
-            <ShoppingCart className="w-4 h-4" />
+            <ShoppingCart className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>
