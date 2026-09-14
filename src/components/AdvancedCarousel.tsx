@@ -137,9 +137,9 @@ export default function AdvancedCarousel({
               <div className="flex items-center gap-4 pt-4">
                 <button
                   onClick={() => dispatch({ type: 'ADD_TO_CART', payload: { product: products[currentIndex] } })}
-                  className="group relative px-8 py-4 bg-white text-indigo-600 rounded-2xl font-bold hover:shadow-2xl transition-all transform hover:scale-105 flex items-center gap-3 overflow-hidden"
+                  className="group relative px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-2xl font-bold hover:shadow-2xl hover:shadow-orange-500/50 transition-all transform hover:scale-105 flex items-center gap-3 overflow-hidden"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-10 transition-opacity"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-red-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   <ShoppingCart className="w-5 h-5 relative z-10" />
                   <span className="relative z-10">افزودن به سبد</span>
                 </button>
@@ -152,41 +152,40 @@ export default function AdvancedCarousel({
               </div>
             </div>
 
-            {/* Product Image with Advanced Effects */}
-            <div className="relative flex items-center justify-center">
-              <div className="relative w-full max-w-lg">
-                {/* Multiple Glow Layers */}
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full blur-3xl opacity-30 hero-animate-glow"></div>
-                <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-rose-500 rounded-full blur-3xl opacity-20 hero-animate-glow" style={{ animationDelay: '1s' }}></div>
-                
-                {/* Product Image Container */}
-                <div 
-                  key={currentIndex}
-                  className="relative hero-animate-float"
-                >
-                  {/* Shine Effect */}
-                  <div className="absolute inset-0 overflow-hidden rounded-3xl">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent hero-animate-shine"></div>
-                  </div>
-
-                  {/* Product Image */}
-                  <img
-                    src={products[currentIndex]?.image}
-                    alt={products[currentIndex]?.name}
-                    className="w-full h-auto relative z-10 transform hover:scale-110 transition-transform duration-700"
-                    style={{
-                      filter: 'drop-shadow(0 30px 60px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 40px rgba(255, 255, 255, 0.2))',
-                    }}
-                  />
-                </div>
-
-                {/* Floating Decorative Elements */}
-                <div className="absolute -top-8 -right-8 w-24 h-24 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-2xl blur-2xl opacity-40 hero-animate-float" style={{ animationDelay: '0.5s' }}></div>
-                <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-gradient-to-br from-purple-400 to-pink-500 rounded-2xl blur-2xl opacity-40 hero-animate-float" style={{ animationDelay: '1.5s' }}></div>
-                <div className="absolute top-1/2 -right-12 w-20 h-20 bg-gradient-to-br from-pink-400 to-rose-500 rounded-full blur-xl opacity-30 hero-animate-float" style={{ animationDelay: '2.5s' }}></div>
+        {/* Product Image with Advanced Effects */}
+        <div className="relative flex items-center justify-center">
+          <div className="relative w-full max-w-lg">
+            {/* Multiple Glow Layers - Brand Colors */}
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full blur-3xl opacity-30 hero-animate-glow"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-red-500 rounded-full blur-3xl opacity-20 hero-animate-glow" style={{ animationDelay: '1s' }}></div>
+            
+            {/* Product Image Container */}
+            <div 
+              key={currentIndex}
+              className="relative hero-animate-float"
+            >
+              {/* Shine Effect */}
+              <div className="absolute inset-0 overflow-hidden rounded-3xl">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent hero-animate-shine"></div>
               </div>
+
+              {/* Product Image */}
+              <img
+                src={products[currentIndex]?.image}
+                alt={products[currentIndex]?.name}
+                className="w-full h-auto relative z-10 transform hover:scale-110 transition-transform duration-700"
+                style={{
+                  filter: 'drop-shadow(0 30px 60px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 40px rgba(255, 255, 255, 0.2))',
+                }}
+              />
             </div>
+
+            {/* Floating Decorative Elements - Brand Colors */}
+            <div className="absolute -top-8 -right-8 w-24 h-24 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl blur-2xl opacity-40 hero-animate-float" style={{ animationDelay: '0.5s' }}></div>
+            <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl blur-2xl opacity-40 hero-animate-float" style={{ animationDelay: '1.5s' }}></div>
+            <div className="absolute top-1/2 -right-12 w-20 h-20 bg-gradient-to-br from-slate-600 to-slate-800 rounded-full blur-xl opacity-30 hero-animate-float" style={{ animationDelay: '2.5s' }}></div>
           </div>
+        </div>          </div>
         </div>
 
         {/* Navigation Arrows */}
@@ -217,11 +216,11 @@ export default function AdvancedCarousel({
             >
               <div className={`absolute inset-0 rounded-full ${
                 i === currentIndex 
-                  ? 'bg-gradient-to-r from-cyan-400 to-blue-500 shadow-lg shadow-cyan-500/50' 
+                  ? 'bg-gradient-to-r from-orange-400 to-orange-500 shadow-lg shadow-orange-500/50' 
                   : 'bg-white/40 hover:bg-white/60'
               }`}></div>
               {i === currentIndex && (
-                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 blur-md opacity-50"></div>
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-orange-400 to-orange-500 blur-md opacity-50"></div>
               )}
             </button>
           ))}
@@ -286,9 +285,9 @@ export default function AdvancedCarousel({
 
       {/* Progress Bar */}
       {autoPlay && (
-        <div className="mt-4 h-1 bg-gray-100 rounded-full overflow-hidden">
+        <div className="mt-4 h-1 bg-slate-100 rounded-full overflow-hidden">
           <div 
-            className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all duration-300"
+            className="h-full bg-gradient-to-r from-slate-900 to-orange-500 rounded-full transition-all duration-300"
             style={{ width: `${((currentIndex + 1) / products.length) * 100}%` }}
           ></div>
         </div>
@@ -361,12 +360,12 @@ function ProductCard3D({ product }: { product: Product }) {
           {/* Price */}
           <div className="space-y-1">
             {product.originalPrice && (
-              <span className="text-xs text-gray-400 line-through block">
+              <span className="text-xs text-slate-400 line-through block">
                 {formatPrice(product.originalPrice)}
               </span>
             )}
             <div className="flex items-center justify-between">
-              <span className="text-lg font-bold text-gray-800">
+              <span className="text-lg font-black text-slate-900">
                 {formatPrice(product.price)}
               </span>
               <button
@@ -374,7 +373,7 @@ function ProductCard3D({ product }: { product: Product }) {
                   e.stopPropagation();
                   dispatch({ type: 'ADD_TO_CART', payload: { product } });
                 }}
-                className="w-10 h-10 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center text-white hover:shadow-lg transition-all transform hover:scale-110"
+                className="w-10 h-10 bg-gradient-to-r from-slate-900 to-slate-700 rounded-xl flex items-center justify-center text-white hover:shadow-lg hover:shadow-slate-900/20 transition-all transform hover:scale-110"
               >
                 <ShoppingCart className="w-5 h-5" />
               </button>
@@ -383,7 +382,7 @@ function ProductCard3D({ product }: { product: Product }) {
         </div>
 
         {/* Bottom Gradient Line */}
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-slate-900 via-indigo-600 to-orange-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
       </div>
     </div>
   );

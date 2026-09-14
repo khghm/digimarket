@@ -33,12 +33,12 @@ export default function AdminPage() {
       <aside className="w-72 bg-white border-l border-gray-200 p-5 hidden lg:flex flex-col shadow-soft">
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+            <div className="w-10 h-10 bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 rounded-xl flex items-center justify-center shadow-lg ring-2 ring-orange-500/20">
               <Zap className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h2 className="text-lg font-bold gradient-text">پنل مدیریت</h2>
-              <p className="text-[10px] text-gray-500">دیجی‌مارکت نسخه ۲.۰</p>
+              <h2 className="text-lg font-black bg-gradient-to-l from-slate-900 to-slate-700 bg-clip-text text-transparent">پنل مدیریت</h2>
+              <p className="text-[10px] text-slate-500">دیجی‌مارکت نسخه ۲.۰</p>
             </div>
           </div>
         </div>
@@ -49,8 +49,8 @@ export default function AdminPage() {
               onClick={() => handleSectionChange(item.id)}
               className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm transition-all duration-200 ${
                 activeSection === item.id
-                  ? 'bg-gradient-to-l from-indigo-600 to-purple-600 text-white shadow-lg font-medium'
-                  : 'text-gray-600 hover:bg-gray-50 hover:text-gray-800'
+                  ? 'bg-gradient-to-l from-slate-900 to-slate-700 text-white shadow-lg font-medium'
+                  : 'text-slate-600 hover:bg-slate-50 hover:text-slate-800'
               }`}
             >
               <div className="flex items-center gap-3">
@@ -67,12 +67,12 @@ export default function AdminPage() {
             </button>
           ))}
         </nav>
-        <div className="mt-6 p-4 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl border border-indigo-100">
+        <div className="mt-6 p-4 bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl border border-slate-200">
           <div className="flex items-center gap-2 mb-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center text-white text-xs font-bold shadow-lg">A</div>
+            <div className="w-8 h-8 bg-gradient-to-br from-slate-900 to-slate-700 rounded-lg flex items-center justify-center text-white text-xs font-bold shadow-lg">A</div>
             <div>
-              <p className="text-xs font-bold text-gray-800">ادمین سیستم</p>
-              <p className="text-[10px] text-gray-500">admin@digimarket.ir</p>
+              <p className="text-xs font-bold text-slate-800">ادمین سیستم</p>
+              <p className="text-[10px] text-slate-500">admin@digimarket.ir</p>
             </div>
           </div>
         </div>
@@ -176,7 +176,7 @@ function DashboardSection() {
               <div key={i} className="flex-1 flex flex-col items-center gap-2 group">
                 <span className="text-[10px] text-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity">{item.amount}</span>
                 <div className="w-full relative rounded-t-xl overflow-hidden" style={{ height: `${item.value}%` }}>
-                  <div className="absolute inset-0 bg-gradient-to-t from-indigo-500 to-purple-500 rounded-t-xl group-hover:from-indigo-400 group-hover:to-purple-400 transition-all"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 to-slate-600 rounded-t-xl group-hover:from-slate-800 group-hover:to-slate-500 transition-all"></div>
                 </div>
                 <span className="text-[10px] text-gray-500">{item.day}</span>
               </div>
@@ -258,13 +258,14 @@ function DashboardSection() {
               ))}
             </div>
           </div>
-          <div className="bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl p-6 text-white shadow-lg">
-            <h3 className="font-bold mb-2">عملکرد ماهانه</h3>
-            <p className="text-3xl font-bold mb-1">۸۵۶M</p>
-            <p className="text-xs text-indigo-100">تومان فروش این ماه</p>
-            <div className="mt-4 flex items-center gap-2">
-              <ArrowUpRight className="w-4 h-4" />
-              <span className="text-xs">۲۳% نسبت به ماه قبل</span>
+          <div className="bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/10 rounded-full blur-2xl"></div>
+            <h3 className="font-bold mb-2 relative z-10">عملکرد ماهانه</h3>
+            <p className="text-3xl font-black mb-1 relative z-10">۸۵۶M</p>
+            <p className="text-xs text-slate-300 relative z-10">تومان فروش این ماه</p>
+            <div className="mt-4 flex items-center gap-2 relative z-10">
+              <ArrowUpRight className="w-4 h-4 text-orange-400" />
+              <span className="text-xs text-orange-300">۲۳% نسبت به ماه قبل</span>
             </div>
           </div>
         </div>
@@ -301,7 +302,7 @@ function ProductsSection({ showAddProduct, setShowAddProduct }: { showAddProduct
         </div>
         <button
           onClick={() => setShowAddProduct(true)}
-          className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-l from-indigo-600 to-purple-600 text-white rounded-xl text-sm font-medium hover:shadow-lg transition-all transform hover:scale-105"
+          className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-l from-slate-900 to-slate-700 text-white rounded-xl text-sm font-medium hover:shadow-lg hover:shadow-slate-900/20 transition-all transform hover:scale-105"
         >
           <Plus className="w-4 h-4" />
           افزودن محصول جدید
@@ -577,7 +578,7 @@ function ProductModal({ product, onClose }: { product: Product | null; onClose: 
         </div>
         <div className="flex items-center justify-end gap-3 mt-6 pt-6 border-t border-gray-100">
           <button onClick={onClose} className="px-6 py-2.5 border border-gray-200 rounded-xl text-sm text-gray-600 hover:bg-gray-50">انصراف</button>
-          <button onClick={handleSave} className="px-6 py-2.5 bg-gradient-to-l from-indigo-600 to-purple-600 text-white rounded-xl text-sm font-medium hover:shadow-lg flex items-center gap-2">
+          <button onClick={handleSave} className="px-6 py-2.5 bg-gradient-to-l from-slate-900 to-slate-700 text-white rounded-xl text-sm font-medium hover:shadow-lg hover:shadow-slate-900/20 flex items-center gap-2">
             <Save className="w-4 h-4" />
             {product ? 'بروزرسانی' : 'ذخیره محصول'}
           </button>
@@ -1187,7 +1188,7 @@ function SettingsSection() {
               </div>
             </div>
             <div className="flex justify-end pt-4 border-t border-gray-100">
-              <button className="px-6 py-2.5 bg-gradient-to-l from-indigo-600 to-purple-600 text-white rounded-xl text-sm font-medium hover:shadow-lg flex items-center gap-2">
+              <button className="px-6 py-2.5 bg-gradient-to-l from-slate-900 to-slate-700 text-white rounded-xl text-sm font-medium hover:shadow-lg hover:shadow-slate-900/20 flex items-center gap-2">
                 <Save className="w-4 h-4" />
                 ذخیره تنظیمات
               </button>
@@ -1269,7 +1270,7 @@ function SettingsSection() {
                 </div>
               </div>
             </div>
-            <button className="w-full px-4 py-3 bg-gradient-to-l from-indigo-600 to-purple-600 text-white rounded-xl text-sm font-medium hover:shadow-lg flex items-center justify-center gap-2">
+            <button className="w-full px-4 py-3 bg-gradient-to-l from-slate-900 to-slate-700 text-white rounded-xl text-sm font-medium hover:shadow-lg hover:shadow-slate-900/20 flex items-center justify-center gap-2">
               <Database className="w-4 h-4" />
               ایجاد پشتیبان فوری
             </button>

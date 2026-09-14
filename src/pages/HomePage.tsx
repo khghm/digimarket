@@ -19,21 +19,21 @@ export default function HomePage() {
       </section>
 
       {/* Trust Badges */}
-      <section className="py-8 bg-white border-b border-gray-100">
+      <section className="py-8 bg-white border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { icon: Truck, title: 'ارسال سریع', desc: 'تحویل اکسپرس به سراسر کشور', color: 'from-blue-500 to-indigo-600' },
-              { icon: Shield, title: 'ضمانت اصالت', desc: 'تمامی محصولات اورجینال', color: 'from-purple-500 to-violet-600' },
-              { icon: Headphones, title: 'پشتیبانی ۲۴/۷', desc: 'تیم پشتیبانی در خدمت شما', color: 'from-emerald-500 to-teal-600' },
-              { icon: Award, title: 'بهترین قیمت', desc: 'تضمین بهترین قیمت بازار', color: 'from-orange-500 to-amber-600' },
+              { icon: Truck, title: 'ارسال سریع', desc: 'تحویل اکسپرس به سراسر کشور', color: 'from-slate-900 to-slate-700' },
+              { icon: Shield, title: 'ضمانت اصالت', desc: 'تمامی محصولات اورجینال', color: 'from-indigo-900 to-indigo-700' },
+              { icon: Headphones, title: 'پشتیبانی ۲۴/۷', desc: 'تیم پشتیبانی در خدمت شما', color: 'from-emerald-700 to-emerald-500' },
+              { icon: Award, title: 'بهترین قیمت', desc: 'تضمین بهترین قیمت بازار', color: 'from-orange-600 to-orange-500' },
             ].map((item, i) => (
-              <div key={i} className="bg-white rounded-2xl p-5 border border-gray-100 card-hover hover:border-indigo-200 shadow-soft hover:shadow-hover group">
+              <div key={i} className="bg-white rounded-2xl p-5 border border-slate-100 card-hover hover:border-slate-300 shadow-soft hover:shadow-hover group">
                 <div className={`w-12 h-12 bg-gradient-to-br ${item.color} rounded-xl flex items-center justify-center mb-3 shadow-lg group-hover:scale-110 transition-transform`}>
                   <item.icon className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="font-bold text-gray-800 text-sm mb-1">{item.title}</h3>
-                <p className="text-xs text-gray-500">{item.desc}</p>
+                <h3 className="font-bold text-slate-800 text-sm mb-1">{item.title}</h3>
+                <p className="text-xs text-slate-500">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -65,11 +65,11 @@ export default function HomePage() {
               }}
               className="group bg-white rounded-2xl p-4 text-center border border-gray-100 card-hover hover:border-indigo-200 shadow-soft hover:shadow-hover"
             >
-              <div className="w-14 h-14 mx-auto bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl flex items-center justify-center mb-3 group-hover:from-indigo-100 group-hover:to-purple-100 transition-all">
+              <div className="w-14 h-14 mx-auto bg-gradient-to-br from-slate-100 to-slate-50 rounded-xl flex items-center justify-center mb-3 group-hover:from-slate-200 group-hover:to-slate-100 transition-all">
                 <CategoryIcon name={cat.icon} />
               </div>
-              <h3 className="text-xs font-medium text-gray-700 group-hover:text-indigo-600 transition-colors">{cat.name}</h3>
-              <p className="text-[10px] text-gray-400 mt-1">{cat.count} محصول</p>
+              <h3 className="text-xs font-medium text-slate-700 group-hover:text-slate-900 transition-colors">{cat.name}</h3>
+              <p className="text-[10px] text-slate-400 mt-1">{cat.count} محصول</p>
             </button>
           ))}
         </div>
@@ -220,18 +220,23 @@ export default function HomePage() {
 
       {/* CTA Banner */}
       <section className="max-w-7xl mx-auto px-4 pb-16">
-        <div className="relative bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 rounded-3xl p-8 md:p-12 overflow-hidden shadow-2xl">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+        <div className="relative bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 rounded-3xl p-8 md:p-12 overflow-hidden shadow-2xl">
+          {/* Decorative Elements */}
+          <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute inset-0 opacity-5" style={{
+            backgroundImage: 'linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)',
+            backgroundSize: '40px 40px'
+          }}></div>
           
           <div className="relative z-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">فروشگاه خود را بسازید</h2>
-            <p className="text-indigo-100 mb-6 max-w-lg">
+            <h2 className="text-3xl md:text-4xl font-black text-white mb-4">فروشگاه خود را بسازید</h2>
+            <p className="text-slate-300 mb-6 max-w-lg">
               با پلتفرم دیجی‌مارکت، کسب‌وکار دیجیتال خود را بدون نیاز به دانش فنی راه‌اندازی کنید.
             </p>
             <button
               onClick={() => dispatch({ type: 'SET_PAGE', payload: 'admin' })}
-              className="px-8 py-3 bg-white text-indigo-600 rounded-xl font-semibold hover:bg-indigo-50 transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
+              className="px-8 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-xl font-bold hover:shadow-lg hover:shadow-orange-500/50 transition-all shadow-lg transform hover:scale-105"
             >
               ورود به پنل مدیریت
             </button>
@@ -243,7 +248,7 @@ export default function HomePage() {
 }
 
 function CategoryIcon({ name }: { name: string }) {
-  const iconClass = "w-7 h-7 text-indigo-600";
+  const iconClass = "w-7 h-7 text-slate-700";
   switch (name) {
     case 'smartphone': return <Smartphone className={iconClass} />;
     case 'laptop': return <Laptop className={iconClass} />;

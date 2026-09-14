@@ -2,6 +2,26 @@
 
 @theme {
   --font-vazir: 'Vazirmatn', sans-serif;
+  
+  /* Brand Colors - Professional Digital Store */
+  --color-brand-primary: #0f172a;      /* Deep Navy - Trust & Professional */
+  --color-brand-secondary: #6366f1;    /* Electric Indigo - Innovation */
+  --color-brand-accent: #f97316;       /* Vibrant Orange - Energy & CTA */
+  --color-brand-success: #10b981;      /* Emerald - Success */
+  --color-brand-warning: #f59e0b;      /* Amber - Warning */
+  --color-brand-danger: #ef4444;       /* Ruby - Danger */
+  
+  /* Neutral Palette */
+  --color-neutral-50: #f8fafc;
+  --color-neutral-100: #f1f5f9;
+  --color-neutral-200: #e2e8f0;
+  --color-neutral-300: #cbd5e1;
+  --color-neutral-400: #94a3b8;
+  --color-neutral-500: #64748b;
+  --color-neutral-600: #475569;
+  --color-neutral-700: #334155;
+  --color-neutral-800: #1e293b;
+  --color-neutral-900: #0f172a;
 }
 
 * {
@@ -14,7 +34,7 @@ html {
 }
 
 body {
-  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  background: #f8fafc;
   color: #0f172a;
   min-height: 100vh;
 }
@@ -98,10 +118,31 @@ body {
 
 /* Gradient text */
 .gradient-text {
-  background: linear-gradient(135deg, #4f46e5, #7c3aed, #06b6d4);
+  background: linear-gradient(135deg, #0f172a 0%, #6366f1 50%, #8b5cf6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+/* Brand Gradients */
+.gradient-primary {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+.gradient-secondary {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+}
+
+.gradient-accent {
+  background: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+}
+
+.gradient-hero {
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%);
+}
+
+.gradient-card {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
 }
 
 /* Glass morphism - light version */
@@ -144,15 +185,15 @@ body {
   background-size: 24px 24px;
 }
 
-/* Professional Border */
+/* Professional Border - Brand Aligned */
 .site-border {
   position: relative;
-  padding: 12px;
+  padding: 16px;
   background: linear-gradient(135deg, 
-    rgba(99, 102, 241, 0.1) 0%, 
-    rgba(168, 85, 247, 0.1) 50%, 
-    rgba(236, 72, 153, 0.1) 100%);
-  border-radius: 24px;
+    rgba(15, 23, 42, 0.05) 0%, 
+    rgba(99, 102, 241, 0.08) 50%, 
+    rgba(249, 115, 22, 0.05) 100%);
+  border-radius: 28px;
   min-height: 100vh;
 }
 
@@ -160,23 +201,26 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  padding: 2px;
+  padding: 3px;
   background: linear-gradient(135deg, 
-    #6366f1 0%, 
-    #a855f7 50%, 
-    #ec4899 100%);
-  border-radius: 24px;
+    #0f172a 0%, 
+    #6366f1 40%, 
+    #8b5cf6 60%, 
+    #f97316 100%);
+  border-radius: 28px;
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
+  box-shadow: 0 0 40px rgba(99, 102, 241, 0.15);
 }
 
 .site-border-inner {
-  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
-  border-radius: 16px;
-  min-height: calc(100vh - 24px);
+  background: #ffffff;
+  border-radius: 20px;
+  min-height: calc(100vh - 32px);
   overflow: hidden;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
 }
 
 /* Hero Carousel Enhancements */

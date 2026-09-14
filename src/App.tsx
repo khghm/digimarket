@@ -91,25 +91,24 @@ function AppContent() {
               <div className="flex items-center justify-between h-16">
                 {/* Logo */}
                 <div className="flex items-center gap-6">
-                  <button onClick={() => navigate('home')} className="flex items-center gap-2">
-                    <div className="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
-                      <span className="text-white font-bold text-lg">DM</span>
-                    </div>
-                    <div className="hidden sm:block">
-                      <h1 className="font-bold gradient-text text-lg leading-tight">دیجی‌مارکت</h1>
-                      <p className="text-[10px] text-gray-500 -mt-0.5">فروشگاه محصولات دیجیتال</p>
-                    </div>
-                  </button>
-
+              <button onClick={() => navigate('home')} className="flex items-center gap-2">
+                <div className="w-11 h-11 bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 rounded-xl flex items-center justify-center shadow-lg shadow-slate-900/20 ring-2 ring-orange-500/20">
+                  <span className="text-white font-black text-lg">DM</span>
+                </div>
+                <div className="hidden sm:block">
+                  <h1 className="font-black text-lg leading-tight bg-gradient-to-l from-slate-900 to-slate-700 bg-clip-text text-transparent">دیجی‌مارکت</h1>
+                  <p className="text-[10px] text-slate-500 font-medium -mt-0.5">فروشگاه محصولات دیجیتال</p>
+                </div>
+              </button>
               {/* Nav Links */}
               <nav className="hidden lg:flex items-center gap-1">
-                <button onClick={() => navigate('home')} className={`px-4 py-2 rounded-xl text-sm transition-all ${state.currentPage === 'home' ? 'bg-indigo-50 text-indigo-600 font-medium' : 'text-gray-600 hover:bg-gray-50'}`}>
+                <button onClick={() => navigate('home')} className={`px-4 py-2 rounded-xl text-sm transition-all ${state.currentPage === 'home' ? 'bg-slate-900 text-white font-medium shadow-md' : 'text-slate-600 hover:bg-slate-100'}`}>
                   خانه
                 </button>
-                <button onClick={() => { dispatch({ type: 'SET_CATEGORY', payload: '' }); navigate('products'); }} className={`px-4 py-2 rounded-xl text-sm transition-all ${state.currentPage === 'products' ? 'bg-indigo-50 text-indigo-600 font-medium' : 'text-gray-600 hover:bg-gray-50'}`}>
+                <button onClick={() => { dispatch({ type: 'SET_CATEGORY', payload: '' }); navigate('products'); }} className={`px-4 py-2 rounded-xl text-sm transition-all ${state.currentPage === 'products' ? 'bg-slate-900 text-white font-medium shadow-md' : 'text-slate-600 hover:bg-slate-100'}`}>
                   محصولات
                 </button>
-                <button onClick={() => navigate('admin')} className="px-4 py-2 rounded-xl text-sm text-gray-600 hover:bg-gray-50 transition-all flex items-center gap-1">
+                <button onClick={() => navigate('admin')} className="px-4 py-2 rounded-xl text-sm text-slate-600 hover:bg-slate-100 transition-all flex items-center gap-1">
                   <LayoutDashboard className="w-4 h-4" />
                   پنل مدیریت
                 </button>
@@ -138,11 +137,11 @@ function AppContent() {
               {/* Favorites */}
               <button
                 onClick={() => navigate('favorites')}
-                className="relative w-10 h-10 flex items-center justify-center rounded-xl bg-gray-50 hover:bg-pink-50 transition-all"
+                className="relative w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-all"
               >
-                <Heart className="w-5 h-5 text-gray-500" />
+                <Heart className="w-5 h-5 text-slate-700" />
                 {state.favorites.length > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-gradient-to-r from-pink-500 to-rose-500 text-white text-[10px] rounded-full flex items-center justify-center shadow-lg">
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold shadow-lg shadow-red-500/50">
                     {state.favorites.length}
                   </span>
                 )}
@@ -151,11 +150,11 @@ function AppContent() {
               {/* Cart */}
               <button
                 onClick={() => navigate('cart')}
-                className="relative w-10 h-10 flex items-center justify-center rounded-xl bg-gray-50 hover:bg-indigo-50 transition-all"
+                className="relative w-10 h-10 flex items-center justify-center rounded-xl bg-slate-100 hover:bg-slate-200 transition-all"
               >
-                <ShoppingCart className="w-5 h-5 text-gray-500" />
+                <ShoppingCart className="w-5 h-5 text-slate-700" />
                 {cartCount > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-[10px] rounded-full flex items-center justify-center font-medium shadow-lg">
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-orange-500 text-white text-[10px] rounded-full flex items-center justify-center font-bold shadow-lg shadow-orange-500/50">
                     {cartCount}
                   </span>
                 )}
@@ -170,14 +169,13 @@ function AppContent() {
                   <span className="text-sm gradient-text font-medium">{state.user.name}</span>
                 </button>
               ) : (
-                <button
-                  onClick={() => setShowLoginModal(true)}
-                  className="hidden sm:flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl text-sm font-medium hover:shadow-lg transition-all transform hover:scale-105"
-                >
-                  <LogIn className="w-4 h-4" />
-                  ورود / ثبت‌نام
-                </button>
-              )}
+              <button
+                onClick={() => setShowLoginModal(true)}
+                className="hidden sm:flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-xl text-sm font-medium hover:shadow-lg hover:shadow-slate-900/20 transition-all transform hover:scale-105 border border-slate-700"
+              >
+                <LogIn className="w-4 h-4" />
+                ورود / ثبت‌نام
+              </button>              )}
 
               {/* Mobile Menu */}
               <button
@@ -238,55 +236,59 @@ function AppContent() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 mt-12">
-        <div className="max-w-7xl mx-auto px-4 py-12">
+      <footer className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white mt-12 relative overflow-hidden">
+        {/* Decorative Elements */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl"></div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 py-12">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
-                  <span className="text-white font-bold">DM</span>
+                <div className="w-11 h-11 bg-gradient-to-br from-slate-700 to-slate-900 rounded-xl flex items-center justify-center shadow-lg ring-2 ring-orange-500/30">
+                  <span className="text-white font-black">DM</span>
                 </div>
                 <div>
-                  <h3 className="font-bold gradient-text">دیجی‌مارکت</h3>
-                  <p className="text-xs text-gray-500">فروشگاه محصولات دیجیتال</p>
+                  <h3 className="font-black text-lg">دیجی‌مارکت</h3>
+                  <p className="text-xs text-slate-400">فروشگاه محصولات دیجیتال</p>
                 </div>
               </div>
-              <p className="text-sm text-gray-500 leading-relaxed">
+              <p className="text-sm text-slate-300 leading-relaxed">
                 پلتفرم جامع فروش محصولات دیجیتال با ضمانت اصالت، قیمت شفاف و ارسال سریع به سراسر ایران.
               </p>
             </div>
             <div>
-              <h4 className="font-bold text-gray-800 mb-4">دسترسی سریع</h4>
+              <h4 className="font-bold text-white mb-4">دسترسی سریع</h4>
               <ul className="space-y-2 text-sm">
-                <li><button onClick={() => navigate('home')} className="text-gray-500 hover:text-indigo-600 transition-colors">صفحه اصلی</button></li>
-                <li><button onClick={() => navigate('products')} className="text-gray-500 hover:text-indigo-600 transition-colors">محصولات</button></li>
-                <li><button onClick={() => navigate('cart')} className="text-gray-500 hover:text-indigo-600 transition-colors">سبد خرید</button></li>
-                <li><button onClick={() => navigate('admin')} className="text-gray-500 hover:text-indigo-600 transition-colors">پنل مدیریت</button></li>
+                <li><button onClick={() => navigate('home')} className="text-slate-300 hover:text-orange-400 transition-colors">صفحه اصلی</button></li>
+                <li><button onClick={() => navigate('products')} className="text-slate-300 hover:text-orange-400 transition-colors">محصولات</button></li>
+                <li><button onClick={() => navigate('cart')} className="text-slate-300 hover:text-orange-400 transition-colors">سبد خرید</button></li>
+                <li><button onClick={() => navigate('admin')} className="text-slate-300 hover:text-orange-400 transition-colors">پنل مدیریت</button></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold text-gray-800 mb-4">خدمات مشتریان</h4>
+              <h4 className="font-bold text-white mb-4">خدمات مشتریان</h4>
               <ul className="space-y-2 text-sm">
-                <li><span className="text-gray-500 hover:text-indigo-600 transition-colors cursor-pointer">پیگیری سفارش</span></li>
-                <li><span className="text-gray-500 hover:text-indigo-600 transition-colors cursor-pointer">شرایط بازگشت</span></li>
-                <li><span className="text-gray-500 hover:text-indigo-600 transition-colors cursor-pointer">گارانتی محصولات</span></li>
-                <li><span className="text-gray-500 hover:text-indigo-600 transition-colors cursor-pointer">سوالات متداول</span></li>
+                <li><span className="text-slate-300 hover:text-orange-400 transition-colors cursor-pointer">پیگیری سفارش</span></li>
+                <li><span className="text-slate-300 hover:text-orange-400 transition-colors cursor-pointer">شرایط بازگشت</span></li>
+                <li><span className="text-slate-300 hover:text-orange-400 transition-colors cursor-pointer">گارانتی محصولات</span></li>
+                <li><span className="text-slate-300 hover:text-orange-400 transition-colors cursor-pointer">سوالات متداول</span></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold text-gray-800 mb-4">تماس با ما</h4>
-              <ul className="space-y-2 text-sm text-gray-500">
+              <h4 className="font-bold text-white mb-4">تماس با ما</h4>
+              <ul className="space-y-2 text-sm text-slate-300">
                 <li>تلفن: ۰۲۱-۹۱۰۰۹۱۰۰</li>
                 <li>ایمیل: info@digimarket.ir</li>
                 <li>پشتیبانی: ۲۴ ساعته، ۷ روز هفته</li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-gray-200 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-xs text-gray-500">کليه حقوق اين سايت متعلق به دیجی‌مارکت می‌باشد. ۱۴۰۳</p>
+          <div className="border-t border-slate-700 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-xs text-slate-400">کليه حقوق اين سايت متعلق به دیجی‌مارکت می‌باشد. ۱۴۰۳</p>
             <div className="flex items-center gap-4">
-              <span className="text-xs text-gray-500 bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-200">نماد اعتماد الکترونیکی</span>
-              <span className="text-xs text-gray-500 bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-200">ساماندهی</span>
+              <span className="text-xs text-slate-300 bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700">نماد اعتماد الکترونیکی</span>
+              <span className="text-xs text-slate-300 bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700">ساماندهی</span>
             </div>
           </div>
         </div>
@@ -301,11 +303,11 @@ function AppContent() {
               <X className="w-5 h-5 text-gray-500" />
             </button>
             <div className="text-center mb-6">
-              <div className="w-16 h-16 mx-auto bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl flex items-center justify-center mb-4 shadow-lg">
-                <span className="text-white font-bold text-2xl">DM</span>
+              <div className="w-16 h-16 mx-auto bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900 rounded-2xl flex items-center justify-center mb-4 shadow-lg ring-2 ring-orange-500/30">
+                <span className="text-white font-black text-2xl">DM</span>
               </div>
-              <h2 className="text-xl font-bold gradient-text">ورود به دیجی‌مارکت</h2>
-              <p className="text-sm text-gray-500 mt-1">برای خرید و پیگیری سفارش‌ها وارد شوید</p>
+              <h2 className="text-xl font-black bg-gradient-to-l from-slate-900 to-slate-700 bg-clip-text text-transparent">ورود به دیجی‌مارکت</h2>
+              <p className="text-sm text-slate-500 mt-1">برای خرید و پیگیری سفارش‌ها وارد شوید</p>
             </div>
             <div className="space-y-4">
               <div>
@@ -331,7 +333,7 @@ function AppContent() {
               <button
                 onClick={handleLogin}
                 disabled={!loginPhone || !loginName}
-                className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 rounded-xl font-semibold hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105"
+                className="w-full bg-gradient-to-r from-slate-900 to-slate-800 text-white py-3 rounded-xl font-semibold hover:shadow-lg hover:shadow-slate-900/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 border border-slate-700"
               >
                 دریافت کد تایید
               </button>
