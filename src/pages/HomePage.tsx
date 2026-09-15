@@ -19,18 +19,18 @@ export default function HomePage() {
       </section>
 
       {/* Trust Badges */}
-      <section className="py-8 bg-white border-b border-slate-100">
+      <section className="py-6 sm:py-8 bg-white border-b border-slate-100">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
             {[
               { icon: Truck, title: 'ارسال سریع', desc: 'تحویل اکسپرس به سراسر کشور', color: 'from-slate-900 to-slate-700' },
               { icon: Shield, title: 'ضمانت اصالت', desc: 'تمامی محصولات اورجینال', color: 'from-indigo-900 to-indigo-700' },
               { icon: Headphones, title: 'پشتیبانی ۲۴/۷', desc: 'تیم پشتیبانی در خدمت شما', color: 'from-emerald-700 to-emerald-500' },
               { icon: Award, title: 'بهترین قیمت', desc: 'تضمین بهترین قیمت بازار', color: 'from-orange-600 to-orange-500' },
             ].map((item, i) => (
-              <div key={i} className="bg-white rounded-2xl p-5 border border-slate-100 card-hover hover:border-slate-300 shadow-soft hover:shadow-hover group">
-                <div className={`w-12 h-12 bg-gradient-to-br ${item.color} rounded-xl flex items-center justify-center mb-3 shadow-lg group-hover:scale-110 transition-transform`}>
-                  <item.icon className="w-6 h-6 text-white" />
+              <div key={i} className="bg-white rounded-2xl p-4 sm:p-5 border border-slate-100 card-hover hover:border-slate-300 shadow-soft hover:shadow-hover group">
+                <div className={`w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br ${item.color} rounded-xl flex items-center justify-center mb-3 shadow-lg group-hover:scale-110 transition-transform`}>
+                  <item.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
                 <h3 className="font-bold text-slate-800 text-sm mb-1">{item.title}</h3>
                 <p className="text-xs text-slate-500">{item.desc}</p>
@@ -41,10 +41,10 @@ export default function HomePage() {
       </section>
 
       {/* Categories */}
-      <section className="max-w-7xl mx-auto px-4 py-16">
-        <div className="flex items-center justify-between mb-8">
+      <section className="max-w-7xl mx-auto px-4 py-10 sm:py-16">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 sm:mb-8">
           <div>
-            <h2 className="text-3xl font-bold text-gray-800 mb-2">دسته‌بندی محصولات</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">دسته‌بندی محصولات</h2>
             <p className="text-gray-500">محصولات مورد نظر خود را پیدا کنید</p>
           </div>
           <button
@@ -55,7 +55,7 @@ export default function HomePage() {
             <ChevronLeft className="w-4 h-4" />
           </button>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-8 gap-3 sm:gap-4">
           {categories.map(cat => (
             <button
               key={cat.id}
@@ -76,22 +76,22 @@ export default function HomePage() {
       </section>
 
       {/* Flash Sale Carousel */}
-      <section className="relative py-16 overflow-hidden bg-gradient-to-br from-red-50 via-orange-50 to-amber-50">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-red-200/30 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-orange-200/30 rounded-full blur-3xl"></div>
+      <section className="relative py-10 sm:py-16 overflow-hidden bg-gradient-to-br from-red-50 via-orange-50 to-amber-50">
+        <div className="absolute top-0 right-0 w-72 h-72 sm:w-96 sm:h-96 bg-red-200/30 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-72 h-72 sm:w-96 sm:h-96 bg-orange-200/30 rounded-full blur-3xl"></div>
         
         <div className="relative max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 sm:mb-8">
             <div>
               <div className="flex items-center gap-2 mb-2">
-                <Zap className="w-6 h-6 text-orange-500" />
-                <h2 className="text-3xl font-bold text-gray-800">پیشنهادات شگفت‌انگیز</h2>
+                <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-orange-500" />
+                <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">پیشنهادات شگفت‌انگیز</h2>
               </div>
               <p className="text-gray-500">تخفیف‌های ویژه با زمان محدود</p>
             </div>
-            <div className="flex items-center gap-2 bg-gradient-to-r from-red-500 to-orange-500 text-white px-4 py-2 rounded-xl shadow-lg">
-              <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-              <span className="text-sm font-bold">فعال</span>
+            <div className="flex items-center gap-2 bg-gradient-to-r from-red-500 to-orange-500 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl shadow-lg">
+              <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-full animate-pulse"></div>
+              <span className="text-xs sm:text-sm font-bold">فعال</span>
             </div>
           </div>
           <AdvancedCarousel 
@@ -104,10 +104,10 @@ export default function HomePage() {
       </section>
 
       {/* Featured Products Carousel */}
-      <section className="max-w-7xl mx-auto px-4 py-16">
-        <div className="flex items-center justify-between mb-8">
+      <section className="max-w-7xl mx-auto px-4 py-10 sm:py-16">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 sm:mb-8">
           <div>
-            <h2 className="text-3xl font-bold text-gray-800 mb-2">محصولات ویژه</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">محصولات ویژه</h2>
             <p className="text-gray-500">منتخب بهترین محصولات</p>
           </div>
           <button
@@ -127,13 +127,13 @@ export default function HomePage() {
       </section>
 
       {/* Mobile & Tablet Carousel */}
-      <section className="relative py-16 overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
-        <div className="absolute top-1/2 right-0 w-96 h-96 bg-blue-200/30 rounded-full blur-3xl"></div>
+      <section className="relative py-10 sm:py-16 overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+        <div className="absolute top-1/2 right-0 w-72 h-72 sm:w-96 sm:h-96 bg-blue-200/30 rounded-full blur-3xl"></div>
         
         <div className="relative max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 sm:mb-8">
             <div>
-              <h2 className="text-3xl font-bold text-gray-800 mb-2">موبایل و تبلت</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">موبایل و تبلت</h2>
               <p className="text-gray-500">جدیدترین گوشی‌ها و تبلت‌ها</p>
             </div>
             <button
@@ -154,10 +154,10 @@ export default function HomePage() {
       </section>
 
       {/* Gaming Carousel */}
-      <section className="max-w-7xl mx-auto px-4 py-16">
-        <div className="flex items-center justify-between mb-8">
+      <section className="max-w-7xl mx-auto px-4 py-10 sm:py-16">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 sm:mb-8">
           <div>
-            <h2 className="text-3xl font-bold text-gray-800 mb-2">دنیای گیمینگ</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">دنیای گیمینگ</h2>
             <p className="text-gray-500">کنسول، لوازم جانبی و بازی</p>
           </div>
           <button

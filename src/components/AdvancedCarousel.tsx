@@ -26,7 +26,7 @@ export default function AdvancedCarousel({
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
-    if (autoPlay && !isHovered && products.length > 1) {
+    if (autoPlay && !isHovered && products.length > 1 && variant === 'hero') {
       intervalRef.current = setInterval(() => {
         setCurrentIndex((prev) => (prev + 1) % products.length);
       }, interval);
@@ -34,7 +34,7 @@ export default function AdvancedCarousel({
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [autoPlay, isHovered, products.length, interval]);
+  }, [autoPlay, isHovered, products.length, interval, variant]);
 
   const goTo = (index: number) => {
     setCurrentIndex(index);
@@ -51,7 +51,7 @@ export default function AdvancedCarousel({
   if (variant === 'hero') {
     return (
       <div 
-        className="relative w-full min-h-[600px] overflow-hidden"
+        className="relative w-full hero-height overflow-hidden"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -92,7 +92,7 @@ export default function AdvancedCarousel({
         <div className="relative z-10 min-h-[600px] flex items-center">
           <div className="w-full max-w-7xl mx-auto px-8 grid md:grid-cols-2 gap-16 items-center py-16">
             {/* Text Content */}
-            <div className="text-white space-y-8 animate-fade-in">
+            <div className="text-white space-y-6 animate-fade-in">
               {/* Badge */}
               <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-2">
                 <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
@@ -100,25 +100,25 @@ export default function AdvancedCarousel({
               </div>
 
               {/* Title */}
-              <h2 className="text-5xl md:text-6xl font-bold leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
                 <span className="block">{products[currentIndex]?.name}</span>
               </h2>
 
               {/* Description */}
-              <p className="text-xl text-indigo-100 leading-relaxed max-w-lg">
+              <p className="text-lg sm:text-xl text-indigo-100 leading-relaxed max-w-lg">
                 {products[currentIndex]?.description}
               </p>
 
               {/* Price Section */}
-              <div className="flex items-center gap-6">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
                 <div>
                   {products[currentIndex]?.originalPrice && (
-                    <span className="text-lg text-indigo-300 line-through block mb-1">
+                    <span className="text-base sm:text-lg text-indigo-300 line-through block mb-1">
                       {formatPrice(products[currentIndex].originalPrice)}
                     </span>
                   )}
                   <div className="flex items-baseline gap-2">
-                    <span className="text-4xl font-bold text-white">
+                    <span className="text-3xl sm:text-4xl font-bold text-white">
                       {formatPrice(products[currentIndex]?.price || 0)}
                     </span>
                   </div>
@@ -134,18 +134,18 @@ export default function AdvancedCarousel({
               </div>
 
               {/* Action Buttons */}
-              <div className="flex items-center gap-4 pt-4">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-2 sm:pt-4">
                 <button
                   onClick={() => dispatch({ type: 'ADD_TO_CART', payload: { product: products[currentIndex] } })}
-                  className="group relative px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-2xl font-bold hover:shadow-2xl hover:shadow-orange-500/50 transition-all transform hover:scale-105 flex items-center gap-3 overflow-hidden"
+                  className="group relative w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-2xl font-bold hover:shadow-2xl hover:shadow-orange-500/50 transition-all transform hover:scale-105 flex items-center justify-center gap-3 overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-red-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   <ShoppingCart className="w-5 h-5 relative z-10" />
-                  <span className="relative z-10">افزودن به سبد</span>
+                  <span className="relative z-10 text-sm sm:text-base">افزودن به سبد</span>
                 </button>
                 <button
                   onClick={() => dispatch({ type: 'SET_PRODUCT', payload: products[currentIndex].id })}
-                  className="px-8 py-4 border-2 border-white/30 text-white rounded-2xl font-bold hover:bg-white/10 transition-all backdrop-blur-sm hover:border-white/50"
+                  className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 border-2 border-white/30 text-white rounded-2xl font-bold hover:bg-white/10 transition-all backdrop-blur-sm hover:border-white/50 text-sm sm:text-base"
                 >
                   مشاهده جزئیات
                 </button>
@@ -191,26 +191,42 @@ export default function AdvancedCarousel({
         {/* Navigation Arrows */}
         <button
           onClick={goPrev}
-          className="absolute right-6 top-1/2 -translate-y-1/2 z-20 w-14 h-14 bg-white/10 backdrop-blur-xl border-2 border-white/20 rounded-2xl flex items-center justify-center text-white hover:bg-white/20 hover:border-white/40 hover:scale-110 transition-all shadow-2xl"
+          className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-14 sm:h-14 bg-white/10 backdrop-blur-xl border-2 border-white/20 rounded-2xl flex items-center justify-center text-white hover:bg-white/20 hover:border-white/40 hover:scale-110 transition-all shadow-2xl hidden sm:block"
         >
-          <ChevronRight className="w-7 h-7" />
+          <ChevronRight className="w-5 h-5 sm:w-7 sm:h-7" />
         </button>
         <button
           onClick={goNext}
-          className="absolute left-6 top-1/2 -translate-y-1/2 z-20 w-14 h-14 bg-white/10 backdrop-blur-xl border-2 border-white/20 rounded-2xl flex items-center justify-center text-white hover:bg-white/20 hover:border-white/40 hover:scale-110 transition-all shadow-2xl"
+          className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-20 w-10 h-10 sm:w-14 sm:h-14 bg-white/10 backdrop-blur-xl border-2 border-white/20 rounded-2xl flex items-center justify-center text-white hover:bg-white/20 hover:border-white/40 hover:scale-110 transition-all shadow-2xl hidden sm:block"
         >
-          <ChevronLeft className="w-7 h-7" />
+          <ChevronLeft className="w-5 h-5 sm:w-7 sm:h-7" />
         </button>
 
+        {/* Mobile swipe indicators */}
+        <div className="sm:hidden absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+          <button
+            onClick={goPrev}
+            className="w-10 h-10 bg-white/20 backdrop-blur-xl border border-white/30 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+          <button
+            onClick={goNext}
+            className="w-10 h-10 bg-white/20 backdrop-blur-xl border border-white/30 rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+        </div>
+
         {/* Progress Indicators */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-3">
+        <div className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 sm:gap-3">
           {products.map((_, i) => (
             <button
               key={i}
               onClick={() => goTo(i)}
               className={`transition-all duration-500 relative ${
                 i === currentIndex 
-                  ? 'w-16 h-2' 
+                  ? 'w-12 sm:w-16 h-2' 
                   : 'w-2 h-2 hover:w-4'
               }`}
             >
@@ -232,60 +248,45 @@ export default function AdvancedCarousel({
     );
   }
 
-  // Featured/Compact Carousel
+  // Featured/Compact Carousel - Responsive Grid
   return (
     <div className="relative">
       {/* Header */}
       {title && (
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
-            <h2 className="text-2xl font-bold text-gray-800">{title}</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-800">{title}</h2>
             {subtitle && <p className="text-sm text-gray-500 mt-1">{subtitle}</p>}
           </div>
           <div className="flex items-center gap-2">
             <button
               onClick={goPrev}
-              className="w-10 h-10 bg-white border border-gray-200 rounded-xl flex items-center justify-center text-gray-600 hover:border-indigo-300 hover:text-indigo-600 transition-all shadow-soft"
+              className="w-9 h-9 sm:w-10 sm:h-10 bg-white border border-gray-200 rounded-xl flex items-center justify-center text-gray-600 hover:border-indigo-300 hover:text-indigo-600 transition-all shadow-soft"
             >
-              <ChevronRight className="w-5 h-5" />
+              <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
             <button
               onClick={goNext}
-              className="w-10 h-10 bg-white border border-gray-200 rounded-xl flex items-center justify-center text-gray-600 hover:border-indigo-300 hover:text-indigo-600 transition-all shadow-soft"
+              className="w-9 h-9 sm:w-10 sm:h-10 bg-white border border-gray-200 rounded-xl flex items-center justify-center text-gray-600 hover:border-indigo-300 hover:text-indigo-600 transition-all shadow-soft"
             >
-              <ChevronLeft className="w-5 h-5" />
+              <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
             </button>
           </div>
         </div>
       )}
 
-      {/* Carousel Container */}
-      <div 
-        className="relative overflow-hidden"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <div 
-          className="flex transition-transform duration-700 ease-out"
-          style={{ 
-            transform: `translateX(${currentIndex * (100 / getVisibleCount(variant))}%)`,
-          }}
-        >
-          {products.map((product, index) => (
-            <div
-              key={product.id}
-              className="flex-shrink-0 px-2"
-              style={{ width: `${100 / getVisibleCount(variant)}%` }}
-            >
-              <ProductCard3D product={product} />
-            </div>
-          ))}
-        </div>
+      {/* Responsive Grid instead of Carousel for better mobile UX */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {products.map((product) => (
+          <div key={product.id}>
+            <ProductCard3D product={product} />
+          </div>
+        ))}
       </div>
 
-      {/* Progress Bar */}
+      {/* Progress Bar (only for autoPlay) */}
       {autoPlay && (
-        <div className="mt-4 h-1 bg-slate-100 rounded-full overflow-hidden">
+        <div className="mt-3 sm:mt-4 h-1 bg-slate-100 rounded-full overflow-hidden">
           <div 
             className="h-full bg-gradient-to-r from-slate-900 to-orange-500 rounded-full transition-all duration-300"
             style={{ width: `${((currentIndex + 1) / products.length) * 100}%` }}
@@ -309,7 +310,7 @@ function ProductCard3D({ product }: { product: Product }) {
       {/* Card */}
       <div className="relative bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-soft hover:shadow-hover hover:border-indigo-200">
         {/* Image Container */}
-        <div className="relative h-48 overflow-hidden bg-gradient-to-br from-gray-50 to-white">
+        <div className="relative card-height overflow-hidden bg-gradient-to-br from-gray-50 to-white">
           {/* Product Image */}
           <img
             src={product.image}
@@ -319,12 +320,12 @@ function ProductCard3D({ product }: { product: Product }) {
 
           {/* Badges */}
           {product.badge && (
-            <div className="absolute top-3 right-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white text-xs px-3 py-1 rounded-full font-bold shadow-lg">
+            <div className="absolute top-2 right-2 bg-gradient-to-r from-pink-500 to-rose-500 text-white text-xs px-3 py-1 rounded-full font-bold shadow-lg">
               {product.badge}
             </div>
           )}
           {discount > 0 && (
-            <div className="absolute top-3 left-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs px-3 py-1 rounded-full font-bold shadow-lg">
+            <div className="absolute top-2 left-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs px-3 py-1 rounded-full font-bold shadow-lg">
               {discount}%
             </div>
           )}
@@ -335,14 +336,14 @@ function ProductCard3D({ product }: { product: Product }) {
               e.stopPropagation();
               dispatch({ type: 'TOGGLE_FAVORITE', payload: product.id });
             }}
-            className="absolute bottom-3 left-3 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
+            className="absolute bottom-2 left-2 w-9 h-9 bg-white rounded-full shadow-lg flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
           >
-            <Heart className={`w-5 h-5 ${isFav ? 'fill-pink-500 text-pink-500' : 'text-gray-400'}`} />
+            <Heart className={`w-4 h-4 ${isFav ? 'fill-pink-500 text-pink-500' : 'text-gray-400'}`} />
           </button>
         </div>
 
         {/* Content */}
-        <div className="p-4 space-y-3">
+        <div className="p-3 sm:p-4 space-y-2">
           {/* Brand */}
           <p className="text-xs text-indigo-600 font-medium">{product.brand}</p>
           
@@ -353,7 +354,7 @@ function ProductCard3D({ product }: { product: Product }) {
 
           {/* Rating */}
           <div className="flex items-center gap-1">
-            <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+            <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
             <span className="text-xs text-gray-500">{product.rating} ({product.reviewCount})</span>
           </div>
 
@@ -365,7 +366,7 @@ function ProductCard3D({ product }: { product: Product }) {
               </span>
             )}
             <div className="flex items-center justify-between">
-              <span className="text-lg font-black text-slate-900">
+              <span className="text-base sm:text-lg font-black text-slate-900">
                 {formatPrice(product.price)}
               </span>
               <button
@@ -373,9 +374,9 @@ function ProductCard3D({ product }: { product: Product }) {
                   e.stopPropagation();
                   dispatch({ type: 'ADD_TO_CART', payload: { product } });
                 }}
-                className="w-10 h-10 bg-gradient-to-r from-slate-900 to-slate-700 rounded-xl flex items-center justify-center text-white hover:shadow-lg hover:shadow-slate-900/20 transition-all transform hover:scale-110"
+                className="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-r from-slate-900 to-slate-700 rounded-xl flex items-center justify-center text-white hover:shadow-lg hover:shadow-slate-900/20 transition-all transform hover:scale-110"
               >
-                <ShoppingCart className="w-5 h-5" />
+                <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
             </div>
           </div>
@@ -386,12 +387,4 @@ function ProductCard3D({ product }: { product: Product }) {
       </div>
     </div>
   );
-}
-
-function getVisibleCount(variant: string): number {
-  switch (variant) {
-    case 'compact': return 5;
-    case 'featured': return 4;
-    default: return 4;
-  }
 }
